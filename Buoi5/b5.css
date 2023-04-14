@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  /* width: 1440px; */
+  width: 1440px;
   display: flex;
   justify-content: center;
 }
@@ -34,8 +34,7 @@ body {
 
 .landing {
   width: 1440px;
-  /* padding: 3.2rem 11.2rem; */
-  padding: 0;
+  padding: 0 11.2rem;
 }
 
 .head {
@@ -265,27 +264,10 @@ body {
 }
 
 
-
-/* .head p, .recent, .all {
-  gap: 0px;
-} */
-
 @media screen and (max-width: 768px) {
-  .html {
-    font-size: 6px;
-  }
-  landing {
-    padding: 8px;
-  }
-  .head h1{
-    font-size: 3.2rem;
-  } 
-  .recent_content, .all_content{
+  .head, .recent-content, .all, .footer{     
     flex-direction: column;
+    padding: 50px 10px;
+    border: 390px 0px;
   }
-
-  .recent_left img{
-    width: 100%;
-  }
-
 }
