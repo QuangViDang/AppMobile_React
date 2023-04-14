@@ -1,0 +1,39 @@
+:root {
+  --color: rgb(0, 255, 55);
+}
+* {
+  margin: 0; /* Loại bỏ margin mặc định */
+  padding: 0; /* Loại bỏ padding mặc định */
+  box-sizing: border-box;
+}
+
+.flex {
+  background-color: rgb(200, 167, 124);
+  width: 350px;
+  height: 350px;
+  display: flex;
+  flex-wrap: wrap;
+  /* align-items: center; */
+  /* justify-content: center; */
+  /* flex-direction: column; */
+}
+
+.class-item {
+  /* width: 33%; */
+  height: 33%;
+}
+
+.item1 {
+  background-color: red;
+  flex-shrink: 3;
+}
+
+.item2 {
+  background-color: rgb(24, 189, 21);
+  flex-shrink: 2;
+}
+
+.item3 {
+  background-color: rgb(201, 162, 32);
+  flex-shrink: 1;
+}
