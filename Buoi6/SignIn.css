@@ -31,6 +31,42 @@ a {
     text-decoration: none;
 }
 
+.remember_forgot {
+    display:flex;
+    justify-content: space-between;
+}
+
+.remember_forgot a, label, .other_login p {
+    color: gray;
+}
+
+.Sign {
+    display: flex;
+}
+
+.security {
+    display: flex;
+    justify-content: space-between;
+}
+
+.security button {
+    border-color: var(--white-color);
+    height: 0px;
+    background-color: var(--white-color);
+    color: var(--white-color);
+    border-style:none;
+
+}
+#other {
+    display: flex;
+    justify-content: center;
+    font-size: 1.6rem;
+}
+.other_acc {
+    display: flex;
+    width: 16.5rem;
+    justify-content: space-between;
+}
 .SignUp {
     position: relative;
     width: 144rem;
@@ -44,10 +80,10 @@ a {
 .SignUp__left__register {
     position: absolute;
     width: 43.5rem;
-    height: 75rem;
+    height: 65rem;
     left: 10.8rem;
     top: 11.7rem;
-    
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -58,6 +94,9 @@ a {
     width: 11.2rem;
     height: 4.5rem;
     line-height: 4.5rem;
+}
+.SignUp__left__register p {
+    line-height: 2.4rem;
 }
 .SignUp__left__register input {
     border-color: var(--white-color);
@@ -147,7 +186,7 @@ button {
         width: 80%;
         height: 80%;
         left: 10%;
-        top: 10%;  
+        top: 10%;
     }
     .SignUp__right {
         display: none;
