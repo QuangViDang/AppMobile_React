@@ -74,6 +74,19 @@
                         <img src="./assets/avt.svg" alt="">
                         <img src="./assets/upload_img.svg" alt="">
                     </form>
+                    <form>
+                        <input type="file" id="image-upload" style="display: none;">
+                        <label for="image-upload"><img src="add-image-icon.png" alt="Thêm ảnh"></label>
+                    </form>
+                      
+                    <script>
+                        const imageUpload = document.getElementById('image-upload');
+                        const imageUploadLabel = document.querySelector('label[for="image-upload"]');
+                      
+                        imageUploadLabel.addEventListener('click', () => {
+                          imageUpload.click();
+                        });
+                    </script>
                 </div>
 
                 <button>Register</button>

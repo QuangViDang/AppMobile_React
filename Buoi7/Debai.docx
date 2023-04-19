@@ -1,0 +1,72 @@
+BTVN :
+
+// 
+b1. validate email :  ⇒  keyword : sử dụng regex 
+
+1 . email : là chuỗi
+
+1. email có giá trị
+2. email là email 
+
+testcase:  null , “” , 1234566  , “1234124@” ,”@gmail.com”, true , [”nam”,”@”,”gmail”] ,”k10app@gmail.com”
+
+b2. validate số đt
+
+1. là số
+2. 10 kí tự
+3. có giá trị
+4. đầu 0
+
+testcase:  null , undf, “” , 1234566  , “1234124@” , [0,1,2,3,4], 98974 ,0988222888
+
+b3. validate giới tính
+
+1. kiểu chuỗi
+2. có giá trị
+3. chỉ có giá trị là MALE hoặc FE_MALE
+
+testcase:  null , undf, “” , 1234566  , “1234124@” , [0,1,2,3,4], “male” ,”FE_MALE”
+
+b4. validate số ngày sinh  ⇒ keyword : timestamp date trong JS
+
+1. có giá trị
+2. kiểu **số** 
+3. quy lại thành ngày được
+4. ngày hôm đó không đc vượt quá ngày hôm nay
+5. ngày hôm đó lớn hơn năm 1990
+
+testcase : null ,und, “1681829958”,1691829958, 1681829958 ,0981829958
+
+b5.  Viết một hàm JavaScript để đảo ngược chuỗi. 
+
+input: 1 chuỗi
+
+output : chuỗi đảo
+
+b6. 1. Viết một hàm để loại bỏ khoảng trắng ở đầu và cuối của một chuỗi.
+
+input: 1 chuỗi
+
+output : chuỗi mới
+
+b7. Viết một hàm để đếm số lượng ký tự chữ hoa trong chuỗi.
+
+input: 1 chuỗi
+
+output : số lượng
+
+b8.  Viết một hàm JavaScript để kiểm tra xem một chuỗi có phải là một chuỗi đối xứng hay không. (Chuỗi đối xứng là chuỗi có thể đọc từ trái sang phải hoặc từ phải sang trái và vẫn giống nhau)
+
+input: chuối
+
+output : bool
+
+b9. Viết một hàm t để tìm tất cả các chuỗi con của một chuỗi đã cho.
+
+input chuỗi
+
+out  mảng
+
+vd :  “ab” ⇒ [”a”,”b”,”ab”]
+
+b5 đến b9 mình ẩn test case mn tìm ra các th cần làm

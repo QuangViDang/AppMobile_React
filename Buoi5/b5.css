@@ -23,7 +23,7 @@ html {
 body {
   display: flex;
   justify-content: center;
-  background-color: rgb(11, 163, 6);
+  background-color: rgb(111, 204, 107);
 }
 
 .btn_item {
@@ -40,14 +40,11 @@ body {
 }
 
 .head {
-  position: absolute;
-  width: 43.5rem;
-  height: 75rem;
-  top: 11.7rem;
-  
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* width: 100%; */
+  align-items: center;
+  padding: 9.6rem 0;
 }
 .head_form {
   display: flex;
@@ -261,13 +258,28 @@ body {
 }
 
   /* Nghịch ngợm  */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1440px) {
   html {
       font-size: 10px;
   }
+
+  body {
+    padding: 0;
+    margin: 0;
+  }
   
-  .head_form {
-    dislay: flex;
+  .landing {
+    position: relative;
+    top: 10%;
+    left: 5%;
+    padding: 0;
+  }
+  .head_form, .recent, .all, .recent_content{
+    display: flex;
     flex-direction: column;
+  }
+
+  .recent_content, .all img {
+    width: 90%;
   }
 }
