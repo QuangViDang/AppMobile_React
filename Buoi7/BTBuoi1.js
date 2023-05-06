@@ -54,7 +54,6 @@ function birthday_check(date){
     if(date === false){
         return false;
     }
-    
 }
 
 birth_check = [null , "", 123, undefined, "male", "FEMALE", "other", "12-02-2022"]

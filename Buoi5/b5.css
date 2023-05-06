@@ -23,7 +23,7 @@ html {
 body {
   display: flex;
   justify-content: center;
-  background-color: rgb(111, 204, 107);
+  background-color: rgb(255, 255, 255);
 }
 
 .btn_item {

@@ -31,6 +31,19 @@ a {
     text-decoration: none;
 }
 
+.security {
+    display: flex;
+    justify-content: space-between;
+}
+
+.security button {
+    border-color: var(--white-color);
+    height: 0px;
+    background-color: var(--white-color);
+    color: var(--white-color);
+    border-style:none;
+}
+
 .SignUp {
     position: relative;
     width: 144rem;

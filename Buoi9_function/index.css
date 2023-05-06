@@ -1,0 +1,10 @@
+.bg_red {
+    background-color: blanchedalmond;
+}
+
+div {
+    width: 100px;
+    height: 50px;
+    background-color: rgba(20, 214, 85, 0.534);
+    margin: 20px;
+}

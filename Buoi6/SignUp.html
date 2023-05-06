@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="./SignUp.css">
+    <script src="./SignUpIn.js"></script>
 </head>
 <body>
     <div class="SignUp">
@@ -15,22 +16,24 @@
                 <div class="content1">
                     <h1>Sign Up</h1>
                     <p>If you already have an account register</p>
-                    <p class='Sign'>You can  <b>  
-                        <a href="./SignIn.html"> Login here !</a>
-                    </b></p>
+                    <p class='Sign'>You can  
+                        <b>  
+                            <a href="./SignIn.html"> Login here !</a>
+                        </b>
+                    </p>
                 </div>
                 <div class="content2">
                     <p class='intro'>Email</p>
                     <div class="inp">
                         <img src="./assets/email.svg" alt="">
-                        <input type="text" placeholder="Enter your email address">
+                        <input type="email" placeholder="Enter your email address">
                     </div>
                     <hr>
 
                     <p class='intro'>Username</p>
                     <div class="inp">
                         <img src="./assets/user.svg" alt="">
-                        <input type="text" placeholder="Enter your User name">
+                        <input id='username' type="text" placeholder="Enter your User name">
                     </div>
                     <hr>
 
@@ -48,16 +51,22 @@
                     <hr>
 
                     <p class='intro'>Password</p>
-                    <div class="inp">
-                        <img src="./assets/pass.svg" alt="">
-                        <input type="text" placeholder="Enter your Password">
+                    <div class="security">
+                        <div class="inp">
+                            <img src="./assets/pass.svg" alt="">
+                            <input type="password" name="password" placeholder="Enter your Password">
+                        </div>
+                        <button type="button" onclick="togglePassword()"><img src="./assets/mk.svg" alt=""></button>
                     </div>
                     <hr>
 
                     <p class='intro'>Confrim Password</p>
-                    <div class="inp">
-                        <img src="./assets/pass.svg" alt="">
-                        <input type="text" placeholder="Confrim your Password">
+                    <div class="security">
+                        <div class="inp">
+                            <img src="./assets/pass.svg" alt="">
+                            <input type="password" name="password" placeholder="Confrim your Password">
+                        </div>
+                        <button type="button" onclick="togglePassword()"><img src="./assets/mk.svg" alt=""></button>
                     </div>
                     <hr>
 
@@ -65,31 +74,21 @@
                     <p class='intro'>Date of birth</p>
                     <div class="inp">
                         <img src="./assets/date.svg" alt="">
-                        <input type="text" placeholder="dd/mm/yyyy">
+                        <input type="datetime" placeholder="dd/mm/yyyy">
                     </div>
                     <hr>
 
                     <p class='intro'>Avatar</p>
                     <form class="inp">
-                        <img src="./assets/avt.svg" alt="">
-                        <img src="./assets/upload_img.svg" alt="">
-                    </form>
-                    <form>
                         <input type="file" id="image-upload" style="display: none;">
-                        <label for="image-upload"><img src="add-image-icon.png" alt="Thêm ảnh"></label>
+                        <img src="./assets/avt.svg" alt="">
+                        <label for="image-upload">
+                            <img src="./assets/upload_img.svg" alt="Thêm ảnh">
+                        </label>
                     </form>
-                      
-                    <script>
-                        const imageUpload = document.getElementById('image-upload');
-                        const imageUploadLabel = document.querySelector('label[for="image-upload"]');
-                      
-                        imageUploadLabel.addEventListener('click', () => {
-                          imageUpload.click();
-                        });
-                    </script>
                 </div>
 
-                <button>Register</button>
+                <button onclick="savedataRegister()">Register</button>
             </div>
         </div>
         <div class="SignUp__right">

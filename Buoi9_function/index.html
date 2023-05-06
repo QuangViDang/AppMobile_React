@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id='k'>
+        <p class="k_p">Hiha</p>
+    </div>
+    <div class="class1">Class - 1</div>
+    <div class="class2">Class - 2</div>
+    <script>
+        console.log("Hiha");
+        const element = document.getElementById("1");
+        const element_class = document.getElementsByClassName("class1");
+        const elementbyTagName = document.getElementsByTagName("div");
+
+        console.log('Thêm thẻ div từ scrip bằng elemet');
+        const adddiv = document.createElement("div");
+        document.body.appendChild(adddiv);
+
+        console.log('Thêm text từ scrip bằng elemet');
+        const text = document.createTextNode("SLH");
+        document.body.appendChild(text);
+        console.log('ID',element,'\nThẻ', elementbyTagName, '\nClass', element_class);
+
+
+        console.log('Select thẻ và class từ scrip bằng elemet');
+        const select_ID = document.querySelector('#k');
+        select_ID.setAttribute("class", "bg_red");
+        select_ID.class = "bg_red";
+
+        const select_ID_1 = document.querySelector('#k');
+        console.log(select_ID_1);
+        const select_ALL = document.querySelectorAll('.class1');
+        const kp = select_ID.querySelector(".k_p");
+        console.log('kp:', kp);
+
+
+        console.log('Thay thế text, html, Content(css, html) trong thẻ');
+        const p = document.querySelector('.k_p');
+        p.innerText = "New Text";
+        console.log('InnerText: ', p);
+
+        const p1 = document.querySelector('.class1');
+        p1.innerHTML = "<p>New HTML.</p>";
+        console.log('InnerHtml: ', p1);
+
+        const p2 = document.getElementsByClassName('.class2');
+        p1.innerContent = "<p>New Content.</p>";
+        console.log('InnerContent: ', p2, p2.innerContent, p2.innerText);
+        
+        console.log('outter');
+        var myDiv = document.getElementById("k");
+        myDiv.outerHTML = "<span>Today is very </span>";
+
+        
+        console.log('Bai tap');
+        const user = [
+            {id:1, age: 17},
+            {id:2, age: 18},
+            {id:3, age: 19},
+        ];
+        const list_out = [];
+        console.log('Sử dụng forEach');
+        user.forEach((value, index) => {
+            console.log('<div>' + value.id + '</div>');
+        });
+
+        console.log('Sử dụng map()');
+        const out_map = user.map((value, index) => `<div>${value.id}</div>`).join(" - ");
+        console.log(out_map);
+
+        console.log('Sử dụng map()');
+        const out_reduce = user.reduce((pre, curr) => {
+            return '<div>' + curr.id + '</div>'
+        }, ' - ');
+        console.log(out_reduce);
+    </script>
+</body>
+</html>
