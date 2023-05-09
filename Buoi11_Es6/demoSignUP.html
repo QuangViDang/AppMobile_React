@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="form" action="">
+      <h4>UserName</h4>
+      <input
+        id="username"
+        type="text"
+        name="username"
+        id=""
+        placeholder="username"
+      />
+      <h4>Password</h4>
+      <input
+        id="password"
+        type="text"
+        name="password"
+        id=""
+        placeholder="password"
+      />
+      <h4>Sex</h4>
+      <label for="">Male</label> <input name="sex" type="radio" />
+      <label for="">FE_MALE</label> <input name="sex" type="radio" />
+      <h4>Dob</h4>
+      <input id="dOB" type="date" name="dOB" id="" />
+      <h4>email</h4>
+      <input id="email" type="text" name="email" id="" placeholder="email" />
+      <button disabled id="submit" type="submit">SUBMIT</button>
+    </form>
+  </body>
+  <script>
+    const nameEle = document.getElementById("username");
+    const passwordEle = document.getElementById("password");
+    const emailEle = document.getElementById("email");
+    const dOBEle = document.getElementById("dOB");
+    const sexEle = document.getElementById("sex");
+    const buttonELe = document.getElementById("submit");
+    const formELe = document.getElementById("form");
+
+    formELe.addEventListener("submit", (event) => {
+      event.preventDefault();
+    });
+
+    buttonELe.addEventListener("click", (event) => {
+      console.log(nameEle.value);
+    });
+  </script>
+</html>
