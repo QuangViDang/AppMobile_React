@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form id="form" action="">
+      <div class="divUserName">
+        <h4>UserName</h4>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          id=""
+          placeholder="username"
+        />
+        <p id="errorUserName" style="color: red"></p>
+      </div>
+
+      <div class="divPassword">
+        <h4>Password</h4>
+        <input
+          id="password"
+          type="text"
+          name="password"
+          id=""
+          placeholder="password"
+        />
+        <p id="errorPassword" style="color: red"></p>
+      </div>
+
+      <div class="divSex">
+        <h4>Sex</h4>
+        <label for="">Male</label> <input id="male" name="sex" type="radio" />
+        <label for="">FE_MALE</label>
+        <input id="female" name="sex" type="radio" checked="true" />
+        <p id="errorSex" style="color: red"></p>
+      </div>
+
+      <div class="divDob">
+        <h4>Dob</h4>
+        <input id="dOB" type="date" name="dOB" id="" />
+        <p id="errorDob" style="color: red"></p>
+      </div>
+
+      <div class="divEmail">
+        <h4>email</h4>
+        <input id="email" type="text" name="email" id="" placeholder="email" />
+        <p id="errorEmail" style="color: red"></p>
+      </div>
+
+      <button id="submit" disabled type="submit">nut</button>
+    </form>
+  </body>
+  <script>
+    const nameEle = document.getElementById("username");
+    const passwordEle = document.getElementById("password");
+    const emailEle = document.getElementById("email");
+    const dOBEle = document.getElementById("dOB");
+    const sexEle = document.getElementById("sex");
+    const buttonELe = document.getElementById("submit");
+    const formELe = document.getElementById("form");
+    const maleELe = document.getElementById("male");
+    const femaleELe = document.getElementById("female");
+
+    const checkSubmit = () => {
+      if (
+        listError.userName ||
+        listError.password ||
+        listError.dob ||
+        listError.sex ||
+        listError.email ||
+        !formValue.userName ||
+        !formValue.dob ||
+        !formValue.sex ||
+        !formValue.email ||
+        !formValue.password
+      ) {
+        buttonELe.setAttribute("disabled", "true");
+      } else {
+        buttonELe.removeAttribute("disabled");
+      }
+    };
+
+    const listError = {
+      userName: null,
+      dob: null,
+      sex: null,
+      password: null,
+      email: null,
+    };
+
+    const formValue = {
+      userName: null,
+      dob: null,
+      sex: null,
+      password: null,
+      email: null,
+    };
+
+    formELe.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+
+    // gắn 1 sự kiện vào thẻ input của username
+nameEle.addEventListener("keyup", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.userName = value;
+
+  // get element
+  const divUserName = document.querySelector(".divUserName");
+  const pErrorEle = divUserName.querySelector("#errorUserName");
+
+  // check dk
+  if (!value || value.length < 6) {
+    pErrorEle.innerText = "ban hay nhap 6 ki tu";
+    listError.userName = "ban hay nhap 6 ki tu";
+  } else {
+    pErrorEle.innerText = "";
+    listError.userName = null;
+  }
+  checkSubmit();
+});
+
+passwordEle.addEventListener("keyup", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.password = value;
+
+  // get element
+  const divUserName = document.querySelector(".divPassword");
+  const pErrorEle = divUserName.querySelector("#errorPassword");
+
+  // check dk
+  if (!value || value.length < 6) {
+    pErrorEle.innerText = "ban hay nhap 6 ki tu";
+    listError.password = "ban hay nhap 6 ki tu";
+  } else {
+    pErrorEle.innerText = "";
+    listError.password = null;
+  }
+  checkSubmit();
+});
+
+emailEle.addEventListener("keyup", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.email = value;
+
+  // get element
+  const divUserName = document.querySelector(".divEmail");
+  const pErrorEle = divUserName.querySelector("#errorEmail");
+
+  // check dk
+  if (!value || value.length < 6) {
+    pErrorEle.innerText = "ban hay nhap 6 ki tu";
+    listError.email = "ban hay nhap 6 ki tu";
+  } else {
+    pErrorEle.innerText = "";
+    listError.email = null;
+  }
+  checkSubmit();
+});
+
+maleELe.addEventListener("click", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.sex = checked;
+  checkSubmit();
+});
+femaleELe.addEventListener("click", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.sex = checked;
+  checkSubmit();
+});
+
+dOBEle.addEventListener("change", (event) => {
+  const { name, value, checked } = event.target;
+  formValue.dob = new Date(value).getTime();
+
+  // get element
+  const divUserName = document.querySelector(".divDob");
+  const pErrorEle = divUserName.querySelector("#errorDob");
+  // check dk
+  if (!value || new Date(value).getTime() > new Date().getTime() - 2000) {
+    pErrorEle.innerText = "nhap nho hon bay h";
+    listError.dob = "ban hay nhap 6 ki tu";
+  } else {
+    pErrorEle.inner = null;
+  }
+  checkSubmit();
+});
+</script>
+</html>
