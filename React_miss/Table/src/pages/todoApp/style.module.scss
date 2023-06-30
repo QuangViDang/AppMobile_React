@@ -1,0 +1,25 @@
+.todoapp {
+    position: absolute;
+    left: 1%;
+    right: 1%;
+    top: 1%;
+    width: 98%;
+
+    padding: 1rem;
+    background: rgb(114, 181, 240);
+    border-radius: 15px;
+}
+
+.add {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.buttonADD {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+.list {
+    overflow-x: auto;
+}

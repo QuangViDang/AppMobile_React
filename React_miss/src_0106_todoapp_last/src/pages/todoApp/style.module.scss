@@ -1,0 +1,24 @@
+.todoapp {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    margin: 1rem;
+    padding: 1rem;
+    background: rgb(114, 181, 240);
+    border-radius: 15px;
+}
+
+.add {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.buttonADD {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}
+.list, .add {
+    padding-top: 5rem;
+}

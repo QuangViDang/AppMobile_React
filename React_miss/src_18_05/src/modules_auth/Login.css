@@ -1,0 +1,13 @@
+#clock_box {
+    padding: 10px;
+    background-color: aliceblue;
+    border-radius: 15px;
+}
+.pick_color {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clock {
+    color: red;
+}

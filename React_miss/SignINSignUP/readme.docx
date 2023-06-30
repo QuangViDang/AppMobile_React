@@ -1,0 +1,25 @@
+Phân tích điểm cần làm trong Hoàn thiện chức năng "Đăng ký/ Đăng nhập"
+
+- Đăng ký: 
+    + lấy dữ liệu từ thẻ input - là dữ liệu khi mình đăng ký nhập vào.
+        ++ Đặt tên class À không: Sẽ là gọi theo type [Đã hoàn thành]
+    + Lưu dữ liệu thành dạng object sau đó chuyển qua dạng JSON và update lên DB 
+    ++ Không phải là lưu trữ dữ liệu thành object mà là chuyển dữ liệu thành các biến phù hợp để POST lên API
+
+
+- Đăng nhập:
+    + Lấy dữ liệu từ thẻ input 
+        ++ Làm sao lấy dữ liệu từ thẻ input của các mục khi chúng đều có các thuộc tính giống nhau?
+
+    + So sánh dữ liệu lấy được với dữ liệu của DB:
+    ++ Không không! Với ý nghĩ trên là mình đã sai về tư tưởng rồi, thật là. Cái gọi là bảo mật hệ thống không cho phép có phương thức get trong bất cứ trường hợp nào được xảy ra. Nên luôn luôn phải dùng POST để gửi request về server để nhận lại true false thôi!
+        ++ Làm sao search dữ liệu lấy từ DB? -------- FOR? Không có FOR gì cả, 1 request là đủ!. Việc check mk server sẽ làm.
+        ++ 
+
+
+- Em đăng ký 2 tài khoản vs 2 email 
+    User: quangvi
+    pass: 123456
+
+    User: (Em quên mất rồi )
+    pass: Quang1203@@@
