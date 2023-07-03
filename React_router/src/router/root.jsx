@@ -20,7 +20,7 @@ export async function action() {
 
 export default function Root() {
     const { contacts } = useLoaderData()
-    console.log(contacts)
+    // console.log(contacts)
     return (
         <>
             <div id="sidebar">
@@ -45,12 +45,7 @@ export default function Root() {
                     </Link>
                 </div>
                 <nav>
-                    <ul>
-                        <li>
-                            <Link to={`contacts/2`}>Your name</Link>
-                        </li>
-                    </ul>
-                    {/* {contacts.length ? (
+                    {contacts.length ? (
                         <ul>
                             {contacts.map((contact) => (
                                 <li key={contact.id}>
@@ -83,7 +78,7 @@ export default function Root() {
                         <p>
                             <i>No contacts</i>
                         </p>
-                    )} */}
+                    )}
                 </nav>
             </div>
             <div id="detail">
