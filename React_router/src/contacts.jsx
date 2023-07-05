@@ -4,7 +4,7 @@ import sortBy from 'sort-by'
 
 export async function getContacts(query) {
     await fakeNetwork(`getContacts:${query}`)
-    let contacts = await localforage.getItem('Contacts')
+    let contacts = await localforage.getItem('contacts')
     if (!contacts) contacts = []
     if (query) {
         contacts = matchSorter(contacts, query, { key: ['first', 'last'] })
@@ -17,7 +17,6 @@ export async function createContact() {
     let id = Math.random().toString(36).substring(2, 9)
     let contact = { id, createdAt: Date.now() }
     let contacts = await getContacts()
-
     contacts.unshift(contact)
     await set(contacts)
     return contact

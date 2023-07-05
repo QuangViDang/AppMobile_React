@@ -32,7 +32,8 @@ export default function Root() {
     const searching =
         navigation.location &&
         new URLSearchParams(navigation.location.search).has('q')
-
+    
+    
     useEffect(() => {
         document.getElementById('q').value = q
     }, [q])
