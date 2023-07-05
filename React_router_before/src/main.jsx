@@ -8,6 +8,9 @@ import Contact, { loader as contactLoader } from './router/contact'
 import EditContact, { action as editAction } from './router/edit'
 import { action as destroyAction } from './router/destroy'
 import Index from './router'
+import { Provider } from 'react-redux'
+import store from './app/store'
+import { Counter } from './feature/counter/counter'
 
 const Main = createBrowserRouter([
     {
@@ -18,6 +21,7 @@ const Main = createBrowserRouter([
         action: rootAction,
         children: [
             { index: true, element: <Index /> },
+            { path: 'counter', element: <Counter /> },
             {
                 path: 'contacts/:contactId',
                 element: <Contact />,
@@ -37,7 +41,10 @@ const Main = createBrowserRouter([
     },
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-        <RouterProvider router={Main} />
-    </React.StrictMode>
+    <Provider store={store}>
+        {' '}
+        <React.StrictMode>
+            <RouterProvider router={Main} />
+        </React.StrictMode>
+    </Provider>
 )

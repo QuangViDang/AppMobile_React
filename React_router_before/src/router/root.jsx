@@ -32,8 +32,7 @@ export default function Root() {
     const searching =
         navigation.location &&
         new URLSearchParams(navigation.location.search).has('q')
-    
-    
+
     useEffect(() => {
         document.getElementById('q').value = q
     }, [q])
@@ -52,9 +51,10 @@ export default function Root() {
                             name="q"
                             defaultValue={q}
                             onChange={(e) => {
-                                const isFirtsSearch = q === null
+                                const isFirstSearch = q == null
+                                console.log(isFirstSearch)
                                 submit(e.currentTarget.form, {
-                                    replace: !isFirtsSearch,
+                                    replace: !isFirstSearch,
                                 })
                             }}
                         />
@@ -69,11 +69,19 @@ export default function Root() {
                         <button type="submit">New</button>
                     </Form>
                 </div>
+
+                {/* Các chức năng */}
                 <div>
                     <Link to={`/`}>
                         <button>Home</button>
                     </Link>
+
+                    <Link to={`/counter`}>
+                        <button>Counter</button>
+                    </Link>
                 </div>
+
+                
                 <nav>
                     {contacts.length ? (
                         <ul>
