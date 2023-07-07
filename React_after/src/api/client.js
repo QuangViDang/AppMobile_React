@@ -1,6 +1,7 @@
 // A tiny wrapper around fetch(), borrowed from
 // https://kentcdodds.com/blog/replace-axios-with-a-simple-custom-fetch-wrapper
 
+// Gọi lên sever và lấy dữ liệu về
 export async function client(endpoint, { body, ...customConfig } = {}) {
     const headers = { "Content-Type": "application/json" };
   
@@ -36,6 +37,8 @@ export async function client(endpoint, { body, ...customConfig } = {}) {
     }
   }
   
+
+// 
   client.get = function (endpoint, customConfig = {}) {
     return client(endpoint, { ...customConfig, method: "GET" });
   };

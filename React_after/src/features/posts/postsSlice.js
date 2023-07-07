@@ -108,14 +108,25 @@ const postsSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
+            .addCase(addNewPost.fulfilled, (state, action ) => {state.posts.push(action.payload)})
     },
 })
 
+// action gồm 2 thành phần: type, payload
+// Tên action được sinh ra từ "name"+/+"tên hàm"
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await client.get('/fakeApi/posts')
     // console.log(response)
     return response.data
 })
-export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
+
+export const addNewPost = createAsyncThunk(
+    'posts/addNewPost',
+    async (initialPost) => {
+        const response = await client.post('/fakeApi/posts', initialPost)
+        return response.data
+    }
+)
+export const { postAdded, postUpdated, reactionAdded ,} = postsSlice.actions
 
 export default postsSlice.reducer

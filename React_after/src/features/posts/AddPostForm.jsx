@@ -1,38 +1,56 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { nanoid } from '@reduxjs/toolkit'
 import { useNavigate } from 'react-router-dom'
-
-import { postAdded } from './postsSlice'
-import usersSlice from '../users/usersSlice'
+import { addNewPost } from './postsSlice'
 
 export const AddPostForm = () => {
     const navigate = useNavigate()
 
-    const users = useSelector((state) => state.users)
-    let default_ = users[0].id
+    const users = useSelector((state) => {
+        return state.users
+    })
+    console.log(users)
 
     const [post, setPost] = useState({
         title: '',
         content: '',
-        user: default_,
+        user: users[0].id,
     })
+    const [Status, setStatus] = useState('idle')
 
     const onTitleChanged = (e) => setPost({ ...post, title: e.target.value })
 
     const onContentChanged = (e) =>
         setPost({ ...post, content: e.target.value })
-    const onUserChanged = (e) => setPost({ ...post, user: e.target.value })
+    const onUserChanged = (e) => {
+        console.log(e.target.value)
+        return setPost({ ...post, user: e.target.value })
+    }
 
     const dispatch = useDispatch()
-    const onSavePostClicked = () => {
-        console.log(post)
-        if (Object.values(post).some((value) => !value)) {
+
+    const onSavePostClicked = async () => {
+        // console.log(post)
+        if (Object.values(post).some((value) => !value) && Status !== 'idle') {
             console.log('Bạn thiếu thông tin', post)
         } else {
-            console.log(post)
-            dispatch(postAdded(post.title, post.content, post.user))
-            navigate('/posts')
+            console.log("Chúc bạn thành công!", post)
+            try {
+                setStatus('pending')
+                await dispatch(
+                    addNewPost({
+                        title: post.title,
+                        content: post.content,
+                        user: post.user,
+                    })
+                ).unwrap()
+            } catch (error) {
+                console.log("Failed to save the post: ", error)
+            } finally {
+                console.log(post)
+                setStatus('idle')
+                navigate('/posts')
+            }
         }
     }
 

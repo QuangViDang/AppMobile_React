@@ -20,11 +20,12 @@ export const PostsList = () => {
     useEffect(() => {
         if (postStatus === 'idle') {
             dispatch(fetchPosts())
-            console.log("postStatus:", postStatus)
+            console.log('postStatus:', postStatus)
         }
     }, [postStatus, dispatch])
 
-    let tempContent
+    let tempContent = []
+    let count = 1;
     if (postStatus === 'loading') {
         tempContent = <Spinner text="loading" />
     } else if (postStatus === 'success') {
@@ -34,7 +35,10 @@ export const PostsList = () => {
                 key={post.id}
                 style={{ display: 'flex', flexDirection: 'column' }}
             >
-                <h3>{post.title}</h3>
+                <div className="postsList_row">
+                    <h3>{post.title}</h3>
+                    <p>{count++}</p>
+                </div>
                 <p className="post-content">{post.content.substring(0, 100)}</p>
                 <PostAuthor userId={post.user} />
                 <TimeAgo timetamp={post.date} />
@@ -54,7 +58,10 @@ export const PostsList = () => {
     }
     return (
         <section className="posts-list">
-            <h2>Posts</h2>
+            <div className="postsList_row">
+                <h2>Posts List</h2>
+                <p>Tatol: {tempContent.length}</p>
+            </div>
             {tempContent}
         </section>
     )

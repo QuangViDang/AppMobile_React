@@ -11,6 +11,8 @@ import Index from './router'
 import { Provider } from 'react-redux'
 import store from './app/store'
 import { Counter } from './feature/counter/counter'
+import AddPostForm from './feature/counter/posts/AddPostForm'
+import PostList from './feature/counter/posts/PostList'
 
 const Main = createBrowserRouter([
     {
@@ -32,6 +34,14 @@ const Main = createBrowserRouter([
                 element: <EditContact />,
                 loader: contactLoader,
                 action: editAction,
+            },
+            {
+                path: '/posts/edit',
+                element: <AddPostForm />,
+            },
+            {
+                path: '/posts',
+                element: <PostList/>,
             },
             {
                 path: 'contacts/:contactId/destroy',

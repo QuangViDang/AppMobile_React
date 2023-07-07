@@ -52,6 +52,7 @@ export default function Root() {
                             defaultValue={q}
                             onChange={(event) => {
                                 const isFirstSearch = q == null
+                                // console.log(q, isFirstSearch)
                                 submit(event.currentTarget.form, {
                                     replace: !isFirstSearch,
                                 })
@@ -78,6 +79,9 @@ export default function Root() {
                     <Link to={`/posts`}>
                         <button>Post</button>
                     </Link>
+                    <Link to={`/users`}>
+                        <button>User</button>
+                    </Link>
                 </div>
                 <nav>
                     {contacts.length ? (
@@ -86,13 +90,16 @@ export default function Root() {
                                 <li key={contact.id}>
                                     <NavLink
                                         to={`contacts/${contact.id}`}
-                                        className={({ isActive, isPending }) =>
+                                        className={({
+                                            isActive,
+                                            isPending,
+                                        }) => {
                                             isActive
                                                 ? 'active'
                                                 : isPending
                                                 ? 'pending'
                                                 : ''
-                                        }
+                                        }}
                                     >
                                         {contact.first || contact.last ? (
                                             <>

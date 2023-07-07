@@ -161,6 +161,10 @@ form[action$="destroy"] button {
   background-image: none;
 }
 
+#function {
+display: flex;
+flex-wrap: wrap;}
+
 #search-spinner {
   width: 1rem;
   height: 1rem;

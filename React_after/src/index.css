@@ -245,8 +245,9 @@ i {
     width: 100%;
 }
 #tac_gia {
-width: 10rem;
-height: 2rem;}
+    width: 10rem;
+    height: 2rem;
+}
 #detail.loading {
     opacity: 0.25;
     transition: opacity 200ms;
@@ -382,4 +383,9 @@ height: 2rem;}
     align-items: center;
     justify-content: center;
     width: 100%;
+}
+
+.postsList_row {
+    display: flex;
+    justify-content: space-between;
 }

@@ -24,8 +24,7 @@ export async function action() {
 }
 
 export default function Root() {
-    const { contacts, q } = useLoaderData()
-    // console.log(q)
+    const { contacts, q }= useLoaderData()
     const navigation = useNavigation()
     const submit = useSubmit()
 
@@ -51,12 +50,12 @@ export default function Root() {
                             name="q"
                             defaultValue={q}
                             onChange={(e) => {
-                                const isFirstSearch = q == null
+                                const isFirstSearch = (q === null)
                                 console.log(isFirstSearch)
                                 submit(e.currentTarget.form, {
                                     replace: !isFirstSearch,
                                 })
-                            }}
+                            }}  
                         />
                         <div
                             id="search-spinner"
@@ -71,17 +70,21 @@ export default function Root() {
                 </div>
 
                 {/* Các chức năng */}
-                <div>
+                <div id="function">
                     <Link to={`/`}>
                         <button>Home</button>
                     </Link>
-
                     <Link to={`/counter`}>
                         <button>Counter</button>
                     </Link>
+                    <Link to={`/posts/edit`}>
+                        <button>Add Post</button>
+                    </Link>
+                    <Link to={`/posts`}>
+                        <button>Post List</button>
+                    </Link>
                 </div>
 
-                
                 <nav>
                     {contacts.length ? (
                         <ul>
@@ -105,7 +108,7 @@ export default function Root() {
                                                 {contact.first} {contact.last}
                                             </>
                                         ) : (
-                                            <i>No name</i>
+                                            <i>No Name</i>
                                         )}{' '}
                                         {contact.favorite && <span>*</span>}
                                     </NavLink>

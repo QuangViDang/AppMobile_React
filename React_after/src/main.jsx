@@ -16,6 +16,9 @@ import { AddPostForm } from './features/posts/AddPostForm'
 import SinglePostPage from './features/posts/SinglePostPage'
 import EditPostForm from './features/posts/EditPostForm'
 import { worker } from './api/sever'
+import { fetchUsers } from './features/users/usersSlice'
+import UsersList from './features/users/UsersList'
+import UserPage from './features/users/UserPage'
 
 const router = createBrowserRouter([
     {
@@ -50,6 +53,14 @@ const router = createBrowserRouter([
                         element: <SinglePostPage />,
                     },
                     {
+                        path: 'users/',
+                        element: <UsersList />,
+                    },
+                    {
+                        path: 'users/:userId',
+                        element: <UserPage />,
+                    },
+                    {
                         path: 'contacts/:contactId',
                         element: <Contact />,
                         loader: contactLoader,
@@ -72,6 +83,7 @@ const router = createBrowserRouter([
 
 async function render() {
     await worker.start()
+    store.dispatch(fetchUsers())
     ReactDOM.createRoot(document.getElementById('root')).render(
         <Provider store={store}>
             <React.StrictMode>
