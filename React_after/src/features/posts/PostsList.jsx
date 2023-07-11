@@ -31,9 +31,8 @@ export const PostsList = () => {
     } else if (postStatus === 'success') {
         tempContent = sortedPost.map((post) => (
             <article
-                className="post-excerpt"
+                className="post-excerpt contentList"
                 key={post.id}
-                style={{ display: 'flex', flexDirection: 'column' }}
             >
                 <div className="postsList_row">
                     <h3>{post.title}</h3>

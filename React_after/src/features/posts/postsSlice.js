@@ -3,36 +3,7 @@ import { sub } from 'date-fns'
 import { client } from '../../api/client'
 
 const initialState = {
-    posts: [
-        {
-            id: '1',
-            title: 'First Post!',
-            content: 'Hello!',
-            user: '2',
-            date: sub(new Date(), { minutes: 16 }).toISOString(),
-            reactions: {
-                thumbsUp: 0,
-                hooray: 0,
-                heart: 0,
-                rocket: 0,
-                eyes: 0,
-            },
-        },
-        {
-            id: '2',
-            title: 'Second Post',
-            content: 'More text',
-            user: '1',
-            date: sub(new Date(), { minutes: 10 }).toISOString(),
-            reactions: {
-                thumbsUp: 0,
-                hooray: 0,
-                heart: 0,
-                rocket: 0,
-                eyes: 0,
-            },
-        },
-    ],
+    posts: [],
     status: 'idle',
     error: null,
 }
@@ -108,7 +79,9 @@ const postsSlice = createSlice({
                 state.status = 'failed'
                 state.error = action.error.message
             })
-            .addCase(addNewPost.fulfilled, (state, action ) => {state.posts.push(action.payload)})
+            .addCase(addNewPost.fulfilled, (state, action) => {
+                state.posts.push(action.payload)
+            })
     },
 })
 
@@ -127,6 +100,6 @@ export const addNewPost = createAsyncThunk(
         return response.data
     }
 )
-export const { postAdded, postUpdated, reactionAdded ,} = postsSlice.actions
+export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
 
 export default postsSlice.reducer

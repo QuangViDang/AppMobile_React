@@ -9,7 +9,7 @@ export const AddPostForm = () => {
     const users = useSelector((state) => {
         return state.users
     })
-    console.log(users)
+    // console.log(users)
 
     const [post, setPost] = useState({
         title: '',
@@ -23,7 +23,7 @@ export const AddPostForm = () => {
     const onContentChanged = (e) =>
         setPost({ ...post, content: e.target.value })
     const onUserChanged = (e) => {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         return setPost({ ...post, user: e.target.value })
     }
 
@@ -47,7 +47,7 @@ export const AddPostForm = () => {
             } catch (error) {
                 console.log("Failed to save the post: ", error)
             } finally {
-                console.log(post)
+                // console.log(post)
                 setStatus('idle')
                 navigate('/posts')
             }

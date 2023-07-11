@@ -5,11 +5,15 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     const reponse = await client.get('/fakeApi/users')
     return reponse.data
 })
-const initialState = [
-    { id: '1', name: 'Vi Dang Quang' },
-    { id: '2', name: 'Tieu Vi' },
-    { id: '3', name: 'Coronatus' },
-]
+const initialState = {
+    users: [
+        // { id: '1', name: 'Vi Dang Quang' },
+        // { id: '2', name: 'Tieu Vi' },
+        // { id: '3', name: 'Coronatus' },
+    ],
+    status: 'idle',
+    error: null,
+}
 
 const usersSlice = createSlice({
     name: 'users',
@@ -23,7 +27,12 @@ const usersSlice = createSlice({
 })
 
 export const selectAllUsers = (state) => state.users
-export const selectUserById = (state, userId) =>
-    state.users.find((user) => user.id === userId)
+export const selectUserById = (state, userId) => {
+    console.log(state.users)
+    return state.find((user) => {
+        // console.log(user.id)
+        return user.id === userId
+    })
+}
 
 export default usersSlice.reducer
