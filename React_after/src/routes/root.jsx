@@ -69,7 +69,7 @@ export default function Root() {
                         <button type="submit">New</button>
                     </Form>
                 </div>
-                <div style={{display:"flex", flexWrap:"wrap"}}>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     <Link>
                         <button to={`/`}>Home</button>
                     </Link>
@@ -84,6 +84,9 @@ export default function Root() {
                     </Link>
                     <Link to={`/landing`}>
                         <button>Landing</button>
+                    </Link>
+                    <Link to={`/table`}>
+                        <button>Table</button>
                     </Link>
                 </div>
                 <nav>

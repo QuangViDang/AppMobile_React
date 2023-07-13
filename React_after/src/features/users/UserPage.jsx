@@ -6,17 +6,15 @@ import { selectAllPosts } from '../posts/postsSlice'
 
 export default function UserPage() {
     const { userId } = useParams()
-    const user = useSelector((state) => {
-      // console.log(state.users)
-        return selectUserById(state.users, userId)
-    })
+    const user = useSelector((state) => selectUserById(state.users, userId))
     console.log(user)
 
     const postsForUser = useSelector((state) => {
-      console.log("postsForUser", state)
-        const AllPosts = selectAllPosts(state.posts)
+        // console.log('postsForUser', state)
+        const AllPosts = selectAllPosts(state)
+        // console.log(AllPosts)
         return AllPosts.filter((post) => {
-            post.user === userId
+            post.id === userId
         })
     })
 

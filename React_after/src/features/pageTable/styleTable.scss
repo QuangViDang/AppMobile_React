@@ -1,0 +1,52 @@
+.tr {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+.table {
+    background-color: white;
+}
+.table th {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+
+.hover {
+    &:hover {
+        background-color: rgba(255, 0, 0, 0.123);
+    }
+}
+.row_tr,
+.hover {
+    height: 3rem;
+}
+
+.pageTableDiv {
+display: flex;
+justify-content: center;}
+
+.container {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+  }
+  .pagination {
+    width: 400px;
+    margin-left: 50px;
+  }
+  .pagination a {
+    display: block;
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+  }
+   
+  .pagination a.active {
+      background-color: #4CAF50;
+      color: white;
+  }
+   
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
