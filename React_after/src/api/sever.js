@@ -3,7 +3,10 @@ import { factory, oneOf, manyOf, primaryKey } from "@mswjs/data";
 import { nanoid } from "@reduxjs/toolkit";
 import faker from "faker";
 import seedrandom from "seedrandom";
+import { Server as MockSocketServer } from "mock-socket";
 import { setRandom } from "txtgen";
+
+import { parseISO } from "date-fns";
 
 const NUM_USERS = 3;
 const POSTS_PER_USER = 3;
@@ -158,6 +161,7 @@ export const handlers = [
     return res(ctx.delay(ARTIFICIAL_DELAY_MS), ctx.json(serializePost(post)));
   }),
   rest.patch("/fakeApi/posts/:postId", (req, res, ctx) => {
+    // eslint-disable-next-line no-unused-vars
     const { id, ...data } = req.body;
     const updatedPost = db.post.update({
       where: { id: { equals: req.params.postId } },
@@ -218,3 +222,86 @@ export const handlers = [
 ];
 
 export const worker = setupWorker(...handlers);
+// worker.printHandlers() // Optional: nice for debugging to see all available route handlers that will be intercepted
+
+/* Mock Websocket Setup */
+
+const socketServer = new MockSocketServer("ws://localhost");
+
+let currentSocket;
+
+const sendMessage = (socket, obj) => {
+  socket.send(JSON.stringify(obj));
+};
+
+// Allow our UI to fake the server pushing out some notifications over the websocket,
+// as if other users were interacting with the system.
+const sendRandomNotifications = (socket, since) => {
+  const numNotifications = getRandomInt(1, 5);
+
+  const notifications = generateRandomNotifications(
+    since,
+    numNotifications,
+    db
+  );
+
+  sendMessage(socket, { type: "notifications", payload: notifications });
+};
+
+export const forceGenerateNotifications = (since) => {
+  sendRandomNotifications(currentSocket, since);
+};
+
+socketServer.on("connection", (socket) => {
+  currentSocket = socket;
+
+  socket.on("message", (data) => {
+    const message = JSON.parse(data);
+
+    switch (message.type) {
+      case "notifications": {
+        const since = message.payload;
+        sendRandomNotifications(socket, since);
+        break;
+      }
+      default:
+        break;
+    }
+  });
+});
+
+/* Random Notifications Generation */
+
+const notificationTemplates = [
+  "poked you",
+  "says hi!",
+  `is glad we're friends`,
+  "sent you a gift",
+];
+
+function generateRandomNotifications(since, numNotifications, db) {
+  const now = new Date();
+  let pastDate;
+
+  if (since) {
+    pastDate = parseISO(since);
+  } else {
+    pastDate = new Date(now.valueOf());
+    pastDate.setMinutes(pastDate.getMinutes() - 15);
+  }
+
+  // Create N random notifications. We won't bother saving these
+  // in the DB - just generate a new batch and return them.
+  const notifications = [...Array(numNotifications)].map(() => {
+    const user = randomFromArray(db.user.getAll());
+    const template = randomFromArray(notificationTemplates);
+    return {
+      id: nanoid(),
+      date: faker.date.between(pastDate, now).toISOString(),
+      message: template,
+      user: user.id,
+    };
+  });
+
+  return notifications;
+}

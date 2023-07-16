@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './styleTable.scss'
 
 const Table_card = ({
+    // arrayValue,
     handleDetai,
     handle_Edit,
     handle_Delete,

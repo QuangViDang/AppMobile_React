@@ -35,7 +35,7 @@ export const PostsList = () => {
                 key={post.id}
             >
                 <div className="postsList_row">
-                    <h3>{post.title}</h3>
+                    <h3>{post.id}</h3>
                     <p>{count++}</p>
                 </div>
                 <p className="post-content">{post.content.substring(0, 100)}</p>

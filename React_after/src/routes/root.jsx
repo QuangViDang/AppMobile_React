@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom'
 import { createContact, getContacts } from '../contacts'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 export async function loader({ request }) {
     const url = new URL(request.url)
@@ -36,6 +37,7 @@ export default function Root() {
         document.getElementById('q').value = q
     }, [q])
 
+    const dispatch = useDispatch()
     return (
         <>
             <div id="sidebar">
@@ -89,6 +91,13 @@ export default function Root() {
                         <button>Table</button>
                     </Link>
                 </div>
+
+                <nav>
+                    <Link to={`/notifications`} className="button muted-button">
+                        Notification
+                    </Link>
+                    <button className='button' onClick={() => {dispatch(fetchNo)}}></button>
+                </nav>
                 <nav>
                     {contacts.length ? (
                         <ul>

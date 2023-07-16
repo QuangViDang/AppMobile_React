@@ -18,7 +18,7 @@ export default function UsersList() {
     }, [userStatus, dispatch])
 
     let users = useSelector(selectAllUsers)
-    // console.log(users)
+    console.log("UserList", users)
 
     let renderList = []
     let count = 1
@@ -37,7 +37,7 @@ export default function UsersList() {
         ))
     }
 
-    console.log(users)
+    // console.log(users)
     // console.log("Hi", renderList)
     return (
         <section className="contentList">

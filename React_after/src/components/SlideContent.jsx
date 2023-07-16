@@ -6,23 +6,19 @@ export default function SlideContent({
     indexAds,
     onChangeIndexAds = () => {},
 }) {
-    const [currentIndex, setCurrentIndex] = useState(0)
     useEffect(() => {
-        setCurrentIndex(indexAds)
+        onChangeIndexAds(indexAds)
     }, [indexAds])
 
-    // console.log(currentIndex)
     const goToPrevious = () => {
-        const isFirst = currentIndex === 0
-        const newIndexClick = isFirst ? slides.length - 1 : currentIndex - 1
-        setCurrentIndex(newIndexClick)
-        // console.log(newIndexClick)
+        console.log(indexAds)
+        const isFirst = indexAds === 0
+        const newIndexClick = isFirst ? slides.length - 1 : indexAds - 1
         onChangeIndexAds(newIndexClick)
     }
     const goToNext = () => {
-        const isLast = currentIndex === slides.length - 1
-        const newIndexClick = isLast ? 0 : currentIndex + 1
-        setCurrentIndex(newIndexClick)
+        const isLast = indexAds === slides.length - 1
+        const newIndexClick = isLast ? 0 : indexAds + 1
         onChangeIndexAds(newIndexClick)
     }
 
@@ -36,7 +32,7 @@ export default function SlideContent({
             />
             <div
                 className="imgContent"
-                style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
+                style={{ backgroundImage: `url(${slides[indexAds].url})` }}
             ></div>
             <img
                 onClick={goToNext}
