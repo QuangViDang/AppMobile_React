@@ -1,9 +1,33 @@
 import React, { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import './stylePagination.scss'
+import Table_card from '../features/pageTable/Table_card'
 
 export default function Pagination() {
     const [inputValue, setInputValue] = useState({ value: '', error: '' })
+    const inputHandle = (e, total) => {
+        if (e.target.value > 0 && e.target.value < total) {
+            console.log(e.target.value)
+            setInputValue({
+                ...inputValue,
+                value: e.target.value,
+            })
+            setInputValue({
+                ...inputValue,
+                error: '',
+            })
+        } else if (e.target.value === '') {
+            setInputValue({
+                ...inputValue,
+                error: '',
+            })
+        } else {
+            setInputValue({
+                ...inputValue,
+                error: ' Đã lớn hơn tổng số',
+            })
+        }
+    }
 
     return (
         <div id="pageTable">
@@ -25,29 +49,7 @@ export default function Pagination() {
                             id="lineNumber"
                             type="text"
                             placeholder="Nhập tại đây"
-                            onChange={(e) => {
-                                if (e.target.value > 0 && e.target.value < 100) {
-                                    console.log(e.target.value)
-                                    setInputValue({
-                                        ...inputValue,
-                                        value: e.target.value,
-                                    })
-                                    setInputValue({
-                                        ...inputValue,
-                                        error: '',
-                                    })
-                                } else if (e.target.value === '') {
-                                    setInputValue({
-                                        ...inputValue,
-                                        error: '',
-                                    })
-                                } else {
-                                    setInputValue({
-                                        ...inputValue,
-                                        error: ' Đã lớn hơn tổng số',
-                                    })
-                                }
-                            }}
+                            onChange={(e) => inputHandle(e, 10)}
                         />
                         <p style={{ color: 'red' }}>{inputValue.error}</p>
                     </div>
@@ -58,7 +60,7 @@ export default function Pagination() {
             </div>
             <div>
                 <h1>Say hiiiiiiiii!!!!!!!! Mã số: {inputValue.value}</h1>
-                <Outlet />
+                <Table_card isCheck="true" isCheckAll="true" />
             </div>
         </div>
     )

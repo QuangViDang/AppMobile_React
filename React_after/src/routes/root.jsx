@@ -93,12 +93,6 @@ export default function Root() {
                 </div>
 
                 <nav>
-                    <Link to={`/notifications`} className="button muted-button">
-                        Notification
-                    </Link>
-                    <button className='button' onClick={() => {dispatch(fetchNo)}}></button>
-                </nav>
-                <nav>
                     {contacts.length ? (
                         <ul>
                             {contacts.map((contact) => (
