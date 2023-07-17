@@ -1,42 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import styles from './styleTable.scss'
 
 const Table_card = ({
-    // arrayValue,
-    handleDetai,
-    handle_Edit,
-    handle_Delete,
-    isCheckAll,
-    handleCheck,
-    listChecked = [],
+    arrayValue,
+    listItem,
+    // handleDetai,
+    // handle_Edit,
+    // handle_Delete,
+    // isCheckAll,
+    // handleCheck,
+    // listChecked = [],
     isCheck = false,
 }) => {
     let counter = 0
-    const listItem = [
-        { name: 'id', label: 'ID' },
-        { name: 'name', label: 'Name' },
-        { name: 'email', label: 'Email' },
-        { name: 'website', label: 'Website' },
-    ]
-    const [arrayValue, setArrayValue] = useState([])
 
-    const GET_DATA_USER = async () => {
-        try {
-            const reponse = await fetch(
-                'https://jsonplaceholder.typicode.com/users'
-            )
-            const resuft = await reponse.json()
-            setArrayValue(resuft)
-        } catch (error) {
-            console.log('Error: ', error)
-        }
-    }
-    useEffect(() => {
-        GET_DATA_USER()
-        console.log(arrayValue)
-    }, [])
-
-    let [isChoose, setIsChoose] = useState()
     return (
         <div>
             <table border="1" className={styles.table}>
@@ -135,72 +112,7 @@ const Table_card = ({
                     )
                 })}
             </table>
-            <div className="pageTableDiv">
-                <div class="pagination">
-                    <a
-                        href="#"
-                        onClick={() => {
-                            let newChoose =
-                                isChoose === 1
-                                    ? arrayValue.length
-                                    : isChoose - 1
-                            setIsChoose(newChoose)
-                        }}
-                    >
-                        &laquo;
-                    </a>
-                    {/* <a
-                        onClick={() => {
-                            setIsChoose(1)
-                        }}
-                        className={isChoose === 1 ? 'active' : ''}
-                        key={1}
-                    >
-                        1
-                    </a> */}
-
-                    {arrayValue.map((valueStart, indexStart) => {
-                    if(arrayValue.length > 7) {
-                    }
-                        return (
-                            <a
-                                onClick={() => {
-                                    setIsChoose(valueStart.id)
-                                }}
-                                className={
-                                    isChoose === valueStart.id ? 'active' : ''
-                                }
-                                key={valueStart.id}
-                            >
-                                {valueStart.id}
-                            </a>
-                        )
-                    })}
-
-                    {/* <a
-                        onClick={() => {
-                            setIsChoose(arrayValue.length)
-                            console.log(isChoose)
-                        }}
-                        className={isChoose ? 'active' : ''}
-                        key={arrayValue.length}
-                    >
-                        {arrayValue.length}
-                    </a> */}
-                    <a
-                        href="#"
-                        onClick={() => {
-                            let newChoose =
-                                isChoose === arrayValue.length
-                                    ? 1
-                                    : isChoose + 1
-                            setIsChoose(newChoose)
-                        }}
-                    >
-                        &raquo;
-                    </a>
-                </div>
-            </div>
+            
         </div>
     )
 }

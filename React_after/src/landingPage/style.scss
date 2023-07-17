@@ -215,14 +215,15 @@ button img {
     .menu {
         display: flex;
         flex-direction: column;
+        align-items: center;
         position: absolute;
         width: 5rem;
         top: 10rem;
-        background-color: #0059ff94;
-        color: white;
+        background-color: #ff0000;
         z-index: 999;
         border-radius: 15px;
     }
+ 
     .hide {
         display: none;
     }
