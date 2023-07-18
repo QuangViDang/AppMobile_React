@@ -94,18 +94,32 @@ export default function Pagination() {
         {
             length:
                 number.page > number.pageShow
-                    ? Math.round(number.pageShow / 2) - 1
+                    ? number.isChooseTable <= Math.round(number.pageShow / 2) ||
+                      number.isChooseTable >=
+                          number.page - Math.round(number.pageShow / 2)
+                        ? Math.round(number.pageShow / 2)
+                        : Math.round(number.pageShow / 2) - 1
                     : number.page - 2,
         },
         (_, index_) => {
+            let startLast = number.page - Math.round(number.pageShow / 2)
             const index__ =
-                number.isChooseTable > 4 &&
-                number.isChooseTable < number.page - 4 &&
-                number.page > 7
+                number.isChooseTable < // Nhỏ hơn số Page - 4
+                    number.page - Math.round(number.pageShow / 2) &&
+                number.isChooseTable > Math.round(number.pageShow / 2) &&
+                number.page > number.pageShow
+                    ? number.isChoose + index_ - 1
+                    : // Đối với
+                    number.isChooseTable < // Nhỏ hơn số Page - 4
+                          number.page - Math.round(number.pageShow / 2) &&
+                      number.isChooseTable > Math.round(number.pageShow / 2) &&
+                      number.page > number.pageShow
                     ? number.isChoose + index_
+                    : number.isChooseTable >=
+                      number.page - Math.round(number.pageShow / 2)
+                    ? startLast + index_ - 1
                     : index_ + 1
             const index = index__ + 1
-            console.log('Hehe', index)
             return (
                 <a
                     onClick={() => handleSetPage(index)}
@@ -144,7 +158,7 @@ export default function Pagination() {
             </div>
             <div className="topPage">
                 <h1>Chúng tôi có {arrayValue.total.length} dòng dữ liệu</h1>
-                <h4>We have ten lines of data</h4>
+                <h4>We have {arrayValue.total.length} lines of data</h4>
                 <h3>Bạn muốn chia thành bao nhiêu dòng 1 trang?</h3>
                 <h5>How many lines do you want each page to have?</h5>
 
@@ -225,7 +239,7 @@ export default function Pagination() {
                             style={{
                                 display:
                                     (number.page > number.pageShow &&
-                                        number.isChooseTable >
+                                        number.isChooseTable >=
                                             number.page - 4) ||
                                     number.page <= number.pageShow
                                         ? 'none'
