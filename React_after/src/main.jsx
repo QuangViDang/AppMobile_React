@@ -23,6 +23,12 @@ import LandingPage from './landingPage/LandingPage'
 import Pagination from './routes/Pagination'
 import { fetchPosts } from './features/posts/postsSlice'
 
+
+const listItemInput = [
+    { name: 'id', label: 'ID' },
+    { name: 'title', label: 'Title' },
+]
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -89,11 +95,16 @@ const router = createBrowserRouter([
     },
     {
         path: '/table',
-        element: <Pagination />,
+        element: (
+            <Pagination
+                paseShow={11}
+                api={'https://jsonplaceholder.typicode.com/albums'}
+                listItem={listItemInput}
+            />
+        ),
         errorElement: <ErrorPage />,
     },
 ])
-
 async function render() {
     await worker.start()
     store.dispatch(fetchUsers())

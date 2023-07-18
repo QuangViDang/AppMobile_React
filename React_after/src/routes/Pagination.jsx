@@ -3,11 +3,11 @@ import { Link, Outlet } from 'react-router-dom'
 import './stylePagination.scss'
 import Table_card from '../features/pageTable/Table_card'
 
-export default function Pagination() {
+export default function Pagination({ paseShow, api ,listItem}) {
     const [number, setNumber] = useState({
         isChooseTable: 1,
         isChoose: 0,
-        pageShow: 7,
+        pageShow: paseShow,
         page: 1,
         line: 0,
         start: 0,
@@ -19,17 +19,11 @@ export default function Pagination() {
         isOk: 'none',
     })
 
-    const listItem = [
-        { name: 'id', label: 'ID' },
-        { name: 'title', label: 'Title' },
-    ]
     const [arrayValue, setArrayValue] = useState({ total: [], single: [] })
 
     const GET_DATA_USER = async () => {
         try {
-            const reponse = await fetch(
-                'https://jsonplaceholder.typicode.com/albums'
-            )
+            const reponse = await fetch(api)
             const resuft = await reponse.json()
             setArrayValue({ ...arrayValue, total: resuft })
             // console.log(arrayValue.total)
@@ -223,7 +217,7 @@ export default function Pagination() {
                             style={{
                                 display:
                                     (number.page > number.pageShow &&
-                                        number.isChooseTable <= 4) ||
+                                        number.isChooseTable <= Math.round(number.pageShow / 2)) ||
                                     number.page <= number.pageShow
                                         ? 'none'
                                         : 'inline',
@@ -240,7 +234,7 @@ export default function Pagination() {
                                 display:
                                     (number.page > number.pageShow &&
                                         number.isChooseTable >=
-                                            number.page - 4) ||
+                                            number.page - Math.round(number.pageShow / 2)) ||
                                     number.page <= number.pageShow
                                         ? 'none'
                                         : 'inline',
