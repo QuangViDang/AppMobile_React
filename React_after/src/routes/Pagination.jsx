@@ -5,11 +5,13 @@ import Table_card from '../features/pageTable/Table_card'
 
 export default function Pagination() {
     const [number, setNumber] = useState({
+        isChooseTable: 1,
+        isChoose: 0,
+        pageShow: 7,
         page: 1,
         line: 0,
         start: 0,
         end: 0,
-        isChooseTable: 1,
     })
     const [inputValue, setInputValue] = useState({
         value: '',
@@ -76,21 +78,34 @@ export default function Pagination() {
         const pageS = arrayValue.total.length / inputValue.value
         setNumber({
             ...number,
+            isChooseTable: 1,
             page: Math.ceil(pageS),
             line: inputValue.value,
             start: 0,
             end: number.line,
         })
-
-        let singleArray = arrayValue.total.slice(number.start, number.end)
+        let singleArray = arrayValue.total.slice(0, inputValue.value)
         setArrayValue({ ...arrayValue, single: singleArray })
+        // handleSetPage(inputValue.value)
         console.log(number)
     }
 
     const PaginationSmall = Array.from(
-        { length: number.page - 2 },
+        {
+            length:
+                number.page > number.pageShow
+                    ? Math.round(number.pageShow / 2) - 1
+                    : number.page - 2,
+        },
         (_, index_) => {
-            const index = index_ + 2
+            const index__ =
+                number.isChooseTable > 4 &&
+                number.isChooseTable < number.page - 4 &&
+                number.page > 7
+                    ? number.isChoose + index_
+                    : index_ + 1
+            const index = index__ + 1
+            console.log('Hehe', index)
             return (
                 <a
                     onClick={() => handleSetPage(index)}
@@ -103,18 +118,24 @@ export default function Pagination() {
         }
     )
     const handleSetPage = (index) => {
-        console.log(number)
+        console.log(index)
+        let start = number.line * (index - 1)
+        let end = Number(start) + Number(number.line)
         setNumber({
             ...number,
             isChooseTable: index,
-            end: index * number.line,
-            start: number.end - number.line,
+            isChoose: index - 1,
+            start: start,
+            end: end,
         })
-
+        console.log(number)
         let singleArray = arrayValue.total.slice(number.start, number.end)
         setArrayValue({ ...arrayValue, single: singleArray })
-        console.log(number)
     }
+
+    useEffect(() => {
+        handleSetPage(number.isChooseTable)
+    }, [number.isChooseTable])
 
     return (
         <div id="pageTable">
@@ -122,7 +143,7 @@ export default function Pagination() {
                 <Link to={`/`}>Back to Root</Link>
             </div>
             <div className="topPage">
-                <h1>Chúng tôi có 5000 dòng dữ liệu</h1>
+                <h1>Chúng tôi có {arrayValue.total.length} dòng dữ liệu</h1>
                 <h4>We have ten lines of data</h4>
                 <h3>Bạn muốn chia thành bao nhiêu dòng 1 trang?</h3>
                 <h5>How many lines do you want each page to have?</h5>
@@ -149,7 +170,7 @@ export default function Pagination() {
                 <h1>
                     Say hiiiiiiiii!!!!!!!! Number lines is: {inputValue.value}
                 </h1>
-                
+
                 <div className="pageTableDiv_pagination">
                     <a
                         href="#"
@@ -158,10 +179,7 @@ export default function Pagination() {
                                 number.isChooseTable === 1
                                     ? number.page
                                     : number.isChooseTable - 1
-                            setNumber({
-                                ...number,
-                                isChooseTable: newChoose,
-                            })
+                            handleSetPage(newChoose)
                         }}
                     >
                         {'<--'} Previous
@@ -170,14 +188,7 @@ export default function Pagination() {
                         <a
                             href="#"
                             onClick={() => {
-                                let newChoose =
-                                    number.isChooseTable === 1
-                                        ? number.page
-                                        : number.isChooseTable - 1
-                                setNumber({
-                                    ...number,
-                                    isChooseTable: newChoose,
-                                })
+                                handleSetPage(1)
                             }}
                         >
                             &laquo;
@@ -194,8 +205,41 @@ export default function Pagination() {
                         >
                             1
                         </a>
+                        <a
+                            style={{
+                                display:
+                                    (number.page > number.pageShow &&
+                                        number.isChooseTable <= 4) ||
+                                    number.page <= number.pageShow
+                                        ? 'none'
+                                        : 'inline',
+                            }}
+                            onClick={() => {
+                                handleSetPage(1)
+                            }}
+                        >
+                            ...
+                        </a>
                         {PaginationSmall}
                         <a
+                            style={{
+                                display:
+                                    (number.page > number.pageShow &&
+                                        number.isChooseTable >
+                                            number.page - 4) ||
+                                    number.page <= number.pageShow
+                                        ? 'none'
+                                        : 'inline',
+                            }}
+                            href="#"
+                            onClick={() => handleSetPage(number.page)}
+                        >
+                            ...
+                        </a>
+                        <a
+                            style={{
+                                display: number.page === 1 ? 'none' : 'inline',
+                            }}
                             href="#"
                             onClick={() => handleSetPage(number.page)}
                             className={
@@ -209,14 +253,7 @@ export default function Pagination() {
                         <a
                             href="#"
                             onClick={() => {
-                                let newChoose =
-                                    number.isChooseTable === number.page
-                                        ? 1
-                                        : number.isChooseTable + 1
-                                setNumber({
-                                    ...number,
-                                    isChooseTable: newChoose,
-                                })
+                                handleSetPage(number.page)
                             }}
                         >
                             &raquo;
@@ -229,15 +266,13 @@ export default function Pagination() {
                                 number.isChooseTable === number.page
                                     ? 1
                                     : number.isChooseTable + 1
-                            setNumber({
-                                ...number,
-                                isChooseTable: newChoose,
-                            })
+                            handleSetPage(newChoose)
                         }}
                     >
                         Next {'-->'}
                     </a>
-                </div><Table_card
+                </div>
+                <Table_card
                     arrayValue={arrayValue.single}
                     listItem={listItem}
                 />
