@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import './stylePagination.scss'
 import Table_card from '../features/pageTable/Table_card'
+import PaginationTable from '../components/PaginationComponent'
 
-export default function Pagination({ paseShow, api ,listItem}) {
+export default function Pagination() {
+    const api = 'https://jsonplaceholder.typicode.com/albums'
     const [number, setNumber] = useState({
-        isChooseTable: 1,
-        isChoose: 0,
-        pageShow: paseShow,
-        page: 1,
-        line: 0,
+        isChoosePage: 1,
         start: 0,
         end: 0,
     })
@@ -37,7 +35,6 @@ export default function Pagination({ paseShow, api ,listItem}) {
 
     const inputHandle = (e, total) => {
         setInputValue({ ...inputValue, isOk: 'none' })
-        console.log(inputValue.isOk)
         if (
             !isNaN(e.target.value) &&
             e.target.value > 0 &&
@@ -69,93 +66,30 @@ export default function Pagination({ paseShow, api ,listItem}) {
               })
             : setInputValue({ ...inputValue, isOk: 'inline' })
 
-        const pageS = arrayValue.total.length / inputValue.value
-        setNumber({
-            ...number,
-            isChooseTable: 1,
-            page: Math.ceil(pageS),
-            line: inputValue.value,
-            start: 0,
-            end: number.line,
-        })
         let singleArray = arrayValue.total.slice(0, inputValue.value)
         setArrayValue({ ...arrayValue, single: singleArray })
-        // handleSetPage(inputValue.value)
-        console.log(number)
     }
 
-    const PaginationSmall = Array.from(
-        {
-            length:
-                number.page > number.pageShow
-                    ? number.isChooseTable <= Math.round(number.pageShow / 2) ||
-                      number.isChooseTable >=
-                          number.page - Math.round(number.pageShow / 2)
-                        ? Math.round(number.pageShow / 2)
-                        : Math.round(number.pageShow / 2) - 1
-                    : number.page - 2,
-        },
-        (_, index_) => {
-            let startLast = number.page - Math.round(number.pageShow / 2)
-            const index__ =
-                number.isChooseTable < // Nhỏ hơn số Page - 4
-                    number.page - Math.round(number.pageShow / 2) &&
-                number.isChooseTable > Math.round(number.pageShow / 2) &&
-                number.page > number.pageShow
-                    ? number.isChoose + index_ - 1
-                    : // Đối với
-                    number.isChooseTable < // Nhỏ hơn số Page - 4
-                          number.page - Math.round(number.pageShow / 2) &&
-                      number.isChooseTable > Math.round(number.pageShow / 2) &&
-                      number.page > number.pageShow
-                    ? number.isChoose + index_
-                    : number.isChooseTable >=
-                      number.page - Math.round(number.pageShow / 2)
-                    ? startLast + index_ - 1
-                    : index_ + 1
-            const index = index__ + 1
-            return (
-                <a
-                    onClick={() => handleSetPage(index)}
-                    className={number.isChooseTable === index ? 'active' : ''}
-                    key={index}
-                >
-                    {index}
-                </a>
-            )
-        }
-    )
-    const handleSetPage = (index) => {
-        console.log(index)
-        let start = number.line * (index - 1)
-        let end = Number(start) + Number(number.line)
-        setNumber({
-            ...number,
-            isChooseTable: index,
-            isChoose: index - 1,
-            start: start,
-            end: end,
-        })
-        console.log(number)
-        let singleArray = arrayValue.total.slice(number.start, number.end)
+    const handleSetPage = (start, end) => {
+        let singleArray = arrayValue.total.slice(start, end)
         setArrayValue({ ...arrayValue, single: singleArray })
     }
 
     useEffect(() => {
-        handleSetPage(number.isChooseTable)
-    }, [number.isChooseTable])
-
+        handleSetPage(number.start, number.end)
+    }, [number.isChoosePage])
+    const listItemInput = [
+        { name: 'id', label: 'ID' },
+        { name: 'title', label: 'Title' },
+    ]
     return (
         <div id="pageTable">
             <div className="backToHome">
                 <Link to={`/`}>Back to Root</Link>
             </div>
             <div className="topPage">
-                <h1>Chúng tôi có {arrayValue.total.length} dòng dữ liệu</h1>
                 <h4>We have {arrayValue.total.length} lines of data</h4>
-                <h3>Bạn muốn chia thành bao nhiêu dòng 1 trang?</h3>
                 <h5>How many lines do you want each page to have?</h5>
-
                 <label htmlFor="lineNumber">
                     Nhập số dòng bạn muốn trên một trang nhé! --{'>'}
                 </label>
@@ -175,114 +109,27 @@ export default function Pagination({ paseShow, api ,listItem}) {
                 </div>
             </div>
             <div className="pageTableDiv">
-                <h1>
-                    Say hiiiiiiiii!!!!!!!! Number lines is: {inputValue.value}
-                </h1>
-
-                <div className="pageTableDiv_pagination">
-                    <a
-                        href="#"
-                        onClick={() => {
-                            let newChoose =
-                                number.isChooseTable === 1
-                                    ? number.page
-                                    : number.isChooseTable - 1
-                            handleSetPage(newChoose)
-                        }}
-                    >
-                        {'<--'} Previous
-                    </a>
-                    <div class="pagination">
-                        <a
-                            href="#"
-                            onClick={() => {
-                                handleSetPage(1)
-                            }}
-                        >
-                            &laquo;
-                        </a>
-                        <a
-                            style={{
-                                display: number.page === 1 ? 'none' : 'inline',
-                            }}
-                            href="#"
-                            onClick={() => handleSetPage(1)}
-                            className={
-                                number.isChooseTable === 1 ? 'active' : ''
-                            }
-                        >
-                            1
-                        </a>
-                        <a
-                            style={{
-                                display:
-                                    (number.page > number.pageShow &&
-                                        number.isChooseTable <= Math.round(number.pageShow / 2)) ||
-                                    number.page <= number.pageShow
-                                        ? 'none'
-                                        : 'inline',
-                            }}
-                            onClick={() => {
-                                handleSetPage(1)
-                            }}
-                        >
-                            ...
-                        </a>
-                        {PaginationSmall}
-                        <a
-                            style={{
-                                display:
-                                    (number.page > number.pageShow &&
-                                        number.isChooseTable >=
-                                            number.page - Math.round(number.pageShow / 2)) ||
-                                    number.page <= number.pageShow
-                                        ? 'none'
-                                        : 'inline',
-                            }}
-                            href="#"
-                            onClick={() => handleSetPage(number.page)}
-                        >
-                            ...
-                        </a>
-                        <a
-                            style={{
-                                display: number.page === 1 ? 'none' : 'inline',
-                            }}
-                            href="#"
-                            onClick={() => handleSetPage(number.page)}
-                            className={
-                                number.isChooseTable === number.page
-                                    ? 'active'
-                                    : ''
-                            }
-                        >
-                            {number.page}
-                        </a>
-                        <a
-                            href="#"
-                            onClick={() => {
-                                handleSetPage(number.page)
-                            }}
-                        >
-                            &raquo;
-                        </a>
-                    </div>
-                    <a
-                        href="#"
-                        onClick={() => {
-                            let newChoose =
-                                number.isChooseTable === number.page
-                                    ? 1
-                                    : number.isChooseTable + 1
-                            handleSetPage(newChoose)
-                        }}
-                    >
-                        Next {'-->'}
-                    </a>
-                </div>
+                <PaginationTable
+                    total={arrayValue.total.length}
+                    itemPerPage={
+                        !inputValue.value
+                            ? arrayValue.total.length
+                            : inputValue.value
+                    }
+                    pageShow={7}
+                    onChangeStartEnd={(isChoosePage, start, end) => {
+                        console.log('Parent', isChoosePage, start, end)
+                        setNumber({
+                            ...number,
+                            isChoosePage: isChoosePage,
+                            start: start,
+                            end: end,
+                        })
+                    }}
+                />
                 <Table_card
                     arrayValue={arrayValue.single}
-                    listItem={listItem}
+                    listItem={listItemInput}
                 />
             </div>
         </div>
