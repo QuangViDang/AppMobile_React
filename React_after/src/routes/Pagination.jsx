@@ -6,11 +6,7 @@ import PaginationTable from '../components/PaginationComponent'
 
 export default function Pagination() {
     const api = 'https://jsonplaceholder.typicode.com/albums'
-    const [number, setNumber] = useState({
-        isChoosePage: 1,
-        start: 0,
-        end: 0,
-    })
+
     const [inputValue, setInputValue] = useState({
         value: '',
         error: '',
@@ -29,8 +25,15 @@ export default function Pagination() {
             console.log('Error: ', error)
         }
     }
+    const [number, setNumber] = useState({
+        isChoosePage: 1,
+        start: 0,
+        end: 0,
+    })
     useEffect(() => {
         GET_DATA_USER()
+        setNumber({ ...number, end: arrayValue.total.length })
+        // console.log(number)
     }, [])
 
     const inputHandle = (e, total) => {
@@ -77,7 +80,9 @@ export default function Pagination() {
 
     useEffect(() => {
         handleSetPage(number.start, number.end)
-    }, [number.isChoosePage])
+    }, [number.isChoosePage, number.start, number.end])
+
+    //Header for Table
     const listItemInput = [
         { name: 'id', label: 'ID' },
         { name: 'title', label: 'Title' },
@@ -110,7 +115,11 @@ export default function Pagination() {
             </div>
             <div className="pageTableDiv">
                 <PaginationTable
-                    total={arrayValue.total.length}
+                    total={
+                        arrayValue.total.length === 0
+                            ? 1
+                            : arrayValue.total.length
+                    }
                     itemPerPage={
                         !inputValue.value
                             ? arrayValue.total.length
@@ -118,7 +127,7 @@ export default function Pagination() {
                     }
                     pageShow={7}
                     onChangeStartEnd={(isChoosePage, start, end) => {
-                        console.log('Parent', isChoosePage, start, end)
+                        // console.log('Parent', isChoosePage, start, end)
                         setNumber({
                             ...number,
                             isChoosePage: isChoosePage,

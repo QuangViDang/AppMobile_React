@@ -6,7 +6,7 @@ export default function PaginationTable({
     itemPerPage,
     onChangeStartEnd = () => {},
 }) {
-    let totalPage = total / itemPerPage
+    console.log(total, pageShow, itemPerPage, Math.ceil(total / itemPerPage))
     const [number, setNumber] = useState({
         isChooseTable: 1,
         isChoose: 0,
@@ -14,8 +14,9 @@ export default function PaginationTable({
         start: 0,
         end: itemPerPage,
         pageShow: pageShow,
-        page: !Math.ceil(totalPage) ? 1:Math.ceil(totalPage),
+        page: Math.ceil(total / itemPerPage),
     })
+
     const PaginationSmall = Array.from(
         {
             length:
@@ -59,23 +60,25 @@ export default function PaginationTable({
     )
 
     const handleSetPage = (index) => {
-        // console.log(index)
+        console.log(index)
         let start = number.line * (index - 1)
         let end = Number(start) + Number(number.line)
         setNumber({
             ...number,
+            line: itemPerPage,
             isChooseTable: index,
             isChoose: index - 1,
             start: start,
             end: end,
+            page: Math.ceil(total / itemPerPage),
         })
-        console.log(number)
     }
 
     useEffect(() => {
+        console.log(number)
         handleSetPage(number.isChooseTable)
         onChangeStartEnd(number.isChooseTable, number.start, number.end)
-    }, [number.isChooseTable])
+    }, [number.isChooseTable, itemPerPage])
 
     return (
         <div className="pageTableDiv">
@@ -92,6 +95,7 @@ export default function PaginationTable({
                 >
                     {'<--'} Previous
                 </a>
+
                 <div class="pagination">
                     <a
                         href="#"
@@ -145,9 +149,6 @@ export default function PaginationTable({
                         ...
                     </a>
                     <a
-                        style={{
-                            display: number.page === 1 ? 'none' : 'inline',
-                        }}
                         href="#"
                         onClick={() => handleSetPage(number.page)}
                         className={
