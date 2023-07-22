@@ -20,6 +20,7 @@ export default function PaginationComponent({
             setInputValue({ ...inputValue, isOk: 'invalid' })
         }
     }
+    
     const handleSave = () => {
         // console.log(inputValue)
         setNumber({ ...number, line: inputValue.value })

@@ -96,23 +96,6 @@ export default function PaginationAndTable() {
             <div className="topPage">
                 <h4>We have {arrayValue.total.length} lines of data</h4>
                 <h5>How many lines do you want each page to have?</h5>
-                <label htmlFor="lineNumber">
-                    Nhập số dòng bạn muốn trên một trang nhé! --{'>'}
-                </label>
-                <div id="divLineNumber">
-                    <div>
-                        <input
-                            id="lineNumber"
-                            type="text"
-                            placeholder="Nhập tại đây"
-                            onChange={(e) =>
-                                inputHandle(e, arrayValue.total.length + 1)
-                            }
-                        />
-                        <p style={{ color: 'red' }}>{inputValue.error}</p>
-                    </div>
-                    <button onClick={handleSave}>OK</button>
-                </div>
             </div>
             <div className="pageTableDiv">
                 <PaginationComponent
