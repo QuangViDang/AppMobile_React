@@ -7,7 +7,10 @@ import Table_card from '../../components/pageTable/Table_card'
 export default function PaginationAndTable() {
     const api = 'https://jsonplaceholder.typicode.com/albums'
 
-    const [arrayValue, setArrayValue] = useState({ total: [], single: [] })
+    const [arrayValue, setArrayValue] = useState({
+        total: [],
+        single: [],
+    })
 
     const GET_DATA_USER = async () => {
         try {
@@ -23,56 +26,11 @@ export default function PaginationAndTable() {
         isChoosePage: 1,
         itemPerPage: 1,
         start: 0,
-        end: 0,
+        end: 10,
     })
     useEffect(() => {
         GET_DATA_USER()
-        setNumber({ ...number, end: arrayValue.total.length })
-        // console.log(number)
     }, [])
-
-    const [inputValue, setInputValue] = useState({
-        value: '',
-        error: '',
-        isOk: 'none',
-    })
-
-    const inputHandle = (e, total) => {
-        setInputValue({ ...inputValue, isOk: 'none' })
-        if (
-            !isNaN(e.target.value) &&
-            e.target.value > 0 &&
-            e.target.value < total
-        ) {
-            setInputValue({
-                ...inputValue,
-                value: e.target.value,
-                error: '',
-            })
-        } else if (e.target.value === '') {
-            setInputValue({
-                ...inputValue,
-                error: '',
-            })
-        } else {
-            setInputValue({
-                ...inputValue,
-                error: ' Đã lớn hơn tổng số',
-            })
-        }
-    }
-
-    const handleSave = () => {
-        !inputValue.value
-            ? setInputValue({
-                  ...inputValue,
-                  error: ' Bạn cần nhập ĐÚNG!',
-              })
-            : setInputValue({ ...inputValue, isOk: 'inline' })
-        setNumber({ ...number, itemPerPage: inputValue.value })
-        let singleArray = arrayValue.total.slice(0, inputValue.value)
-        setArrayValue({ ...arrayValue, single: singleArray })
-    }
 
     const handleSetPage = (start, end) => {
         let singleArray = arrayValue.total.slice(start, end)
@@ -85,8 +43,9 @@ export default function PaginationAndTable() {
 
     //Header for Table
     const listItemInput = [
-        { name: 'id', label: 'ID' },
-        { name: 'title', label: 'Title' },
+        { name: 'id', label: 'ID', space: '40px' },
+        { name: 'title', label: 'Title', space: '200px' },
+        { name: 'title', label: 'Title', space: '500px' },
     ]
     return (
         <div id="pageTable">
@@ -98,6 +57,10 @@ export default function PaginationAndTable() {
                 <h5>How many lines do you want each page to have?</h5>
             </div>
             <div className="pageTableDiv">
+                <Table_card
+                    arr_value={arrayValue.single}
+                    listItem={listItemInput}
+                />
                 <PaginationComponent
                     total={
                         arrayValue.total.length === 0
@@ -115,10 +78,6 @@ export default function PaginationAndTable() {
                             end: end,
                         })
                     }}
-                />
-                <Table_card
-                    arr_value={arrayValue.single}
-                    listItem={listItemInput}
                 />
             </div>
         </div>

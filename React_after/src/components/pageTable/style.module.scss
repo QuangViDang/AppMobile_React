@@ -4,17 +4,36 @@
 }
 .table {
     background-color: white;
+    // width: 100%;
 }
 .table th {
+    height: 2.5rem;
     padding-left: 0.3rem;
     padding-right: 0.3rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-
+.table tr {
+    width: 100%;
+    // white-space: nowrap;
+}
+.tableDiv {
+    width: 100%;
+    overflow-x: auto;
+}
 .hover {
     &:hover {
         background-color: rgba(255, 0, 0, 0.123);
     }
 }
-.row_tr, .hover {
-    height: 3rem;
+.row_tr,
+.hover {
+    height: 2.5rem;
+}
+table,
+td,
+th {
+    border: none;
+}
+table hr {
+    margin: 0 0 0 0;
 }

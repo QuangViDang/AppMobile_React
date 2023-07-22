@@ -6,8 +6,26 @@ export default function PaginationComponent({
     itemPerPage,
     onChangeStartEnd = () => {},
 }) {
+    let totalPage = Math.ceil(total / itemPerPage)
+    const [number, setNumber] = useState({
+        isChooseTable: 1,
+        isChoose: 0,
+        line: itemPerPage,
+        start: 0,
+        end: itemPerPage,
+        pageShow: pageShow,
+        page: totalPage,
+    })
+
+    console.log(
+        'total',
+        total,
+        pageShow,
+        itemPerPage,
+        Math.ceil(total / itemPerPage)
+    )
     const [inputValue, setInputValue] = useState({
-        value: 1,
+        value: total,
         isOk: '',
     })
 
@@ -20,28 +38,12 @@ export default function PaginationComponent({
             setInputValue({ ...inputValue, isOk: 'invalid' })
         }
     }
-    
+
     const handleSave = () => {
         // console.log(inputValue)
         setNumber({ ...number, line: inputValue.value })
         handleSetPage(1)
     }
-
-    // console.log(
-    //     total,
-    //     pageShow,
-    //     inputValue.value,
-    //     Math.ceil(total / inputValue.value)
-    // )
-    const [number, setNumber] = useState({
-        isChooseTable: 1,
-        isChoose: 0,
-        line: total,
-        start: 0,
-        end: total,
-        pageShow: pageShow,
-        page: Math.ceil(total / inputValue.value),
-    })
 
     const PaginationSmall = Array.from(
         {
@@ -52,7 +54,7 @@ export default function PaginationComponent({
                           number.page - Math.round(number.pageShow / 2)
                         ? Math.round(number.pageShow / 2)
                         : Math.round(number.pageShow / 2) - 1
-                    : number.page-2,
+                    : number.page - 2,
         },
         (_, index_) => {
             let startLast = number.page - Math.round(number.pageShow / 2)
@@ -99,7 +101,6 @@ export default function PaginationComponent({
             page: Math.ceil(total / inputValue.value),
         })
     }
-
     useEffect(() => {
         handleSetPage(number.isChooseTable)
         onChangeStartEnd(number.isChooseTable, number.start, number.end)
@@ -111,6 +112,7 @@ export default function PaginationComponent({
     useEffect(() => {
         handleSetPage()
     }, [number.line])
+
     return (
         <div className="PaginationDiv">
             <div class="pagination">
@@ -211,14 +213,14 @@ export default function PaginationComponent({
                     &raquo;
                 </a>
             </div>
-            <div>
+            <div className="inputItemPerPage">
                 <input
                     className={inputValue.isOk}
                     type="text"
                     placeholder="item"
                     onChange={inputHandle}
                 />
-                <a onClick={handleSave}>OK</a>
+                <button onClick={handleSave}>OK</button>
             </div>
         </div>
     )

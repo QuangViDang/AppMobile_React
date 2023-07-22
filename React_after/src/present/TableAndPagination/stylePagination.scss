@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1024px;
+    // width: 1024px;
     background-color: aquamarine;
 }
 #divLineNumber {
@@ -17,16 +17,10 @@
     margin-bottom: 1rem;
 }
 
-#divLineNumber button {
-    width: 2.7rem;
-    height: 2.7rem;
-    border-radius: 100%;
-}
 .pageTableDiv {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1024px;
     background-color: rgba(247, 103, 103, 0.158);
 }
 .pageTableDiv_pagination {
