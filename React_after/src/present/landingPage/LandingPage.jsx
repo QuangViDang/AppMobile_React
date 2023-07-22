@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
-import ButtonCustom from '../components/ButtonCustom'
-import Menu from '../components/Menu'
+import ButtonCustom from '../../components/ButtonCustom'
+import Menu from '../../components/Menu'
 import './style.scss'
-import SlideContent from '../components/SlideContent'
+import SlideContent from '../../components/SlideContent'
 import { useState } from 'react'
 
 export default function LandingPage() {
     const [indexAds, setIndexAds] = useState(0)
     const slidesImgAds = [
-        { id: 0, title: 'One', url: 'src/landingPage/assets/Content1.gif' },
-        { id: 1, title: 'Two', url: 'src/landingPage/assets/Content2.gif' },
-        { id: 2, title: 'Three', url: 'src/landingPage/assets/Content3.png' },
+        { id: 0, title: 'One', url: 'src/present/landingPage/assets/Content1.gif' },
+        { id: 1, title: 'Two', url: 'src/present/landingPage/assets/Content2.gif' },
+        { id: 2, title: 'Three', url: 'src/present/landingPage/assets/Content3.png' },
     ]
 
     const items = [
@@ -31,7 +31,7 @@ export default function LandingPage() {
                     <div className="landingHeader__left">
                         <Menu
                             items={items}
-                            link_icon_menu={'src/landingPage/assets/Logo.gif'}
+                            link_icon_menu={'src/present/landingPage/assets/Logo.gif'}
                         />
                     </div>
                     <div className="landingHeader__right">

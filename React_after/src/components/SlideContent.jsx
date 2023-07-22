@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../landingPage/style.scss'
+import "../present/landingPage/style.scss"
 
 export default function SlideContent({
     slides,

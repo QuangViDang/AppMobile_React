@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './stylePagination.scss'
-import Table_card from '../features/pageTable/Table_card'
-import PaginationTable from '../components/PaginationComponent'
+import PaginationComponent from '../../components/pagination/PaginationComponent'
+import Table_card from '../../components/pageTable/Table_card'
 
-export default function Pagination() {
+export default function PaginationAndTable() {
     const api = 'https://jsonplaceholder.typicode.com/albums'
-
-    const [inputValue, setInputValue] = useState({
-        value: '',
-        error: '',
-        isOk: 'none',
-    })
 
     const [arrayValue, setArrayValue] = useState({ total: [], single: [] })
 
@@ -27,6 +21,7 @@ export default function Pagination() {
     }
     const [number, setNumber] = useState({
         isChoosePage: 1,
+        itemPerPage: 1,
         start: 0,
         end: 0,
     })
@@ -35,6 +30,12 @@ export default function Pagination() {
         setNumber({ ...number, end: arrayValue.total.length })
         // console.log(number)
     }, [])
+
+    const [inputValue, setInputValue] = useState({
+        value: '',
+        error: '',
+        isOk: 'none',
+    })
 
     const inputHandle = (e, total) => {
         setInputValue({ ...inputValue, isOk: 'none' })
@@ -68,7 +69,7 @@ export default function Pagination() {
                   error: ' Bạn cần nhập ĐÚNG!',
               })
             : setInputValue({ ...inputValue, isOk: 'inline' })
-
+        setNumber({ ...number, itemPerPage: inputValue.value })
         let singleArray = arrayValue.total.slice(0, inputValue.value)
         setArrayValue({ ...arrayValue, single: singleArray })
     }
@@ -114,17 +115,13 @@ export default function Pagination() {
                 </div>
             </div>
             <div className="pageTableDiv">
-                <PaginationTable
+                <PaginationComponent
                     total={
                         arrayValue.total.length === 0
                             ? 1
                             : arrayValue.total.length
                     }
-                    itemPerPage={
-                        !inputValue.value
-                            ? arrayValue.total.length
-                            : inputValue.value
-                    }
+                    itemPerPage={number.itemPerPage}
                     pageShow={7}
                     onChangeStartEnd={(isChoosePage, start, end) => {
                         // console.log('Parent', isChoosePage, start, end)
@@ -137,7 +134,7 @@ export default function Pagination() {
                     }}
                 />
                 <Table_card
-                    arrayValue={arrayValue.single}
+                    arr_value={arrayValue.single}
                     listItem={listItemInput}
                 />
             </div>

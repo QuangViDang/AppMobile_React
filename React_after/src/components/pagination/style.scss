@@ -1,0 +1,56 @@
+.PaginationDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+}
+.PaginationDiv a {
+    display: inline-flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    text-decoration: none;
+    color: black;
+    margin: 0.3rem;
+}
+.pagination a.active {
+    background-color: blue;
+    color: white;
+    border-radius: 100%;
+}
+.pagination .icon {
+    font-size: 25px;
+}
+.PaginationDiv input {
+    height: 2rem;
+    width: 5rem;
+}
+
+input:focus {
+    outline: none;
+}
+.PaginationDiv input.invalid {
+    border-color: red !important;
+    color: red;
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+.PaginationDiv input.valid {
+    border-color: green;
+    color: rgb(0, 177, 0);
+}
