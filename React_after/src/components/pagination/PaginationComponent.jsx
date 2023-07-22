@@ -17,13 +17,13 @@ export default function PaginationComponent({
         page: totalPage,
     })
 
-    console.log(
-        'total',
-        total,
-        pageShow,
-        itemPerPage,
-        Math.ceil(total / itemPerPage)
-    )
+    // console.log(
+    //     'total',
+    //     total,
+    //     pageShow,
+    //     itemPerPage,
+    //     Math.ceil(total / itemPerPage)
+    // )
     const [inputValue, setInputValue] = useState({
         value: total,
         isOk: '',
@@ -75,6 +75,21 @@ export default function PaginationComponent({
                     ? startLast + index_ - 1
                     : index_ + 1
             const index = index__ + 1
+            return (
+                <a
+                    onClick={() => handleSetPage(index)}
+                    className={number.isChooseTable === index ? 'active' : ''}
+                    key={index}
+                >
+                    {index}
+                </a>
+            )
+        }
+    )
+    const PaginationSmallerShow = Array.from(
+        { length: number.page },
+        (_,index_) => {
+            const index = index_ +1
             return (
                 <a
                     onClick={() => handleSetPage(index)}
@@ -138,58 +153,70 @@ export default function PaginationComponent({
                 >
                     ‹
                 </a>
-                <a
-                    style={{
-                        display: number.page === 1 ? 'none' : '',
-                    }}
-                    href="#"
-                    onClick={() => handleSetPage(1)}
-                    className={number.isChooseTable === 1 ? 'active' : ''}
-                >
-                    1
-                </a>
-                <a
-                    style={{
-                        display:
-                            (number.page > number.pageShow &&
-                                number.isChooseTable <=
-                                    Math.round(number.pageShow / 2)) ||
-                            number.page <= number.pageShow
-                                ? 'none'
-                                : '',
-                    }}
-                    onClick={() => {
-                        handleSetPage(1)
-                    }}
-                >
-                    ...
-                </a>
-                {PaginationSmall}
-                <a
-                    style={{
-                        display:
-                            (number.page > number.pageShow &&
-                                number.isChooseTable >=
-                                    number.page -
-                                        Math.round(number.pageShow / 2)) ||
-                            number.page <= number.pageShow
-                                ? 'none'
-                                : '',
-                    }}
-                    href="#"
-                    onClick={() => handleSetPage(number.page)}
-                >
-                    ...
-                </a>
-                <a
-                    href="#"
-                    onClick={() => handleSetPage(number.page)}
-                    className={
-                        number.isChooseTable === number.page ? 'active' : ''
-                    }
-                >
-                    {number.page}
-                </a>
+                {number.page > number.pageShow ? (
+                    <>
+                        <a
+                            style={{
+                                display: number.page === 1 ? 'none' : '',
+                            }}
+                            href="#"
+                            onClick={() => handleSetPage(1)}
+                            className={
+                                number.isChooseTable === 1 ? 'active' : ''
+                            }
+                        >
+                            1
+                        </a>
+                        <a
+                            style={{
+                                display:
+                                    (number.page > number.pageShow &&
+                                        number.isChooseTable <=
+                                            Math.round(number.pageShow / 2)) ||
+                                    number.page <= number.pageShow
+                                        ? 'none'
+                                        : '',
+                            }}
+                            onClick={() => {
+                                handleSetPage(1)
+                            }}
+                        >
+                            ...
+                        </a>
+                        {PaginationSmall}
+                        <a
+                            style={{
+                                display:
+                                    (number.page > number.pageShow &&
+                                        number.isChooseTable >=
+                                            number.page -
+                                                Math.round(
+                                                    number.pageShow / 2
+                                                )) ||
+                                    number.page <= number.pageShow
+                                        ? 'none'
+                                        : '',
+                            }}
+                            href="#"
+                            onClick={() => handleSetPage(number.page)}
+                        >
+                            ...
+                        </a>
+                        <a
+                            href="#"
+                            onClick={() => handleSetPage(number.page)}
+                            className={
+                                number.isChooseTable === number.page
+                                    ? 'active'
+                                    : ''
+                            }
+                        >
+                            {number.page}
+                        </a>
+                    </>
+                ) : (
+                    PaginationSmallerShow
+                )}
                 <a
                     className="icon"
                     href="#"

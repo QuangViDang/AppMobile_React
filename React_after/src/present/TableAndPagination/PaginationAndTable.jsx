@@ -57,10 +57,6 @@ export default function PaginationAndTable() {
                 <h5>How many lines do you want each page to have?</h5>
             </div>
             <div className="pageTableDiv">
-                <Table_card
-                    arr_value={arrayValue.single}
-                    listItem={listItemInput}
-                />
                 <PaginationComponent
                     total={
                         arrayValue.total.length === 0
@@ -78,6 +74,10 @@ export default function PaginationAndTable() {
                             end: end,
                         })
                     }}
+                />
+                <Table_card
+                    arr_value={arrayValue.single}
+                    listItem={listItemInput}
                 />
             </div>
         </div>
