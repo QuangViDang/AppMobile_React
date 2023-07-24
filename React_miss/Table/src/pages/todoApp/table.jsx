@@ -1,14 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './style.module.scss'
-import InputCustom from '../../components/input/inputText'
-import IMAGE_APP from '../../assets/image'
-import ButtonCustom from '../../components/button/button'
 import Table_card from '../../components/card/cardTable_todo'
 import { useStore } from '../../context/hooks'
-import { ToastContainer, toast } from 'react-toastify'
-import Model_Edit from './model_todoUser/model_edit'
-import Model_Delete from './model_todoUser/model_delete'
-import Model_Detail from './model_todoUser/model_detail'
 
 const Table = () => {
     const arr_header = [

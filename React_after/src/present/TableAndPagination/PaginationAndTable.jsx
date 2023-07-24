@@ -5,7 +5,6 @@ import PaginationComponent from '../../components/pagination/PaginationComponent
 import Table_card from '../../components/pageTable/Table_card'
 
 export default function PaginationAndTable() {
-    const api = 'https://jsonplaceholder.typicode.com/albums'
 
     const [arrayValue, setArrayValue] = useState({
         total: [],
@@ -44,9 +43,12 @@ export default function PaginationAndTable() {
     //Header for Table
     const listItemInput = [
         { name: 'id', label: 'ID', space: '40px' },
-        { name: 'title', label: 'Title', space: '200px' },
-        { name: 'title', label: 'Title', space: '500px' },
+        { name: 'title', label: 'Title', space: '400px' },
+        { name: 'albumId', label: 'Album ID', space: '70px' },  
+        { name: 'url', label: 'URL', space: '400px' },  
+        { name: 'thumbnailUrl', label: 'ThumbnailUrl', space: '400px' },  
     ]
+    const api = 'https://jsonplaceholder.typicode.com/photos'
     return (
         <div id="pageTable">
             <div className="backToHome">

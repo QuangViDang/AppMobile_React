@@ -7,13 +7,18 @@ export default function PaginationComponent({
     onChangeStartEnd = () => {},
 }) {
     let totalPage = Math.ceil(total / itemPerPage)
+    function getWindowWidth() {
+        const { innerWidth: width } = window
+        return width
+    }
+    
     const [number, setNumber] = useState({
         isChooseTable: 1,
         isChoose: 0,
         line: itemPerPage,
         start: 0,
         end: itemPerPage,
-        pageShow: pageShow,
+        pageShow: getWindowWidth() < 400 ? 5 : pageShow,
         page: totalPage,
     })
 
@@ -88,8 +93,8 @@ export default function PaginationComponent({
     )
     const PaginationSmallerShow = Array.from(
         { length: number.page },
-        (_,index_) => {
-            const index = index_ +1
+        (_, index_) => {
+            const index = index_ + 1
             return (
                 <a
                     onClick={() => handleSetPage(index)}
@@ -181,7 +186,7 @@ export default function PaginationComponent({
                                 handleSetPage(1)
                             }}
                         >
-                            ...
+                            . . .
                         </a>
                         {PaginationSmall}
                         <a
@@ -200,7 +205,7 @@ export default function PaginationComponent({
                             href="#"
                             onClick={() => handleSetPage(number.page)}
                         >
-                            ...
+                            . . .
                         </a>
                         <a
                             href="#"

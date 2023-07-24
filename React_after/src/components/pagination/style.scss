@@ -3,6 +3,12 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    // width: 100%;
+}
+.pagination {
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 @media screen and (max-width: 500px) {
@@ -17,7 +23,8 @@
 .PaginationDiv a {
     display: inline-flex;
     justify-content: center;
-    width: 24px;
+    align-items: center;
+    width: 28px;
     height: 24px;
     text-decoration: none;
     color: black;
