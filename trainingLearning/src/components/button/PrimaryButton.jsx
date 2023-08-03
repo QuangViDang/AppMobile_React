@@ -1,11 +1,11 @@
 import { View, Image, Button, Text, Pressable, StyleSheet } from 'react-native'
 
-const PrimaryButton = ({
+function PrimaryButton({
     Children,
     imgButton,
     backgroundColorInput = 'blue',
     onPressHandel,
-}) => {
+}) {
     const styles = StyleSheet.create({
         buttonOuterContainera: {
             margin: 4,
