@@ -1,0 +1,22 @@
+/* Index1 */
+.head {
+    background: gray; 
+}
+.head__menu--left--text{
+    color: white;
+    font-size: 16px;
+}
+
+.inline {
+    display: inline;
+}
+
+.pd15 {
+    padding: 10px;
+}
+
+.head__menu--left--icon img{
+    width: 32px;
+    height: 16px;
+    color: white;
+}

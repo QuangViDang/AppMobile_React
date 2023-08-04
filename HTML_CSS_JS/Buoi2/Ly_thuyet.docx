@@ -1,0 +1,73 @@
+Buổi 1: 
+
+1. Install Node.js and npm by running the following command in your terminal:
+    sudo apt-get install nodejs npm
+2. Install Yarn by running the following command:
+    npm install -g yarn
+3. Install the React Native CLI by running the following command:
+    sudo npm install -g react-native-cli
+4. Create a new React Native project by running the following command:
+    react-native init myproject
+
+# React là framework 
+# Node là môi trường để chạy 
+
+
+Open your Linux terminal.
+
+5. Update the package manager by running the following command:
+    sudo apt-get update
+6. Install curl by running the following command:
+    sudo apt-get install curl
+7. Download the Node.js installation script by running the following command:
+    curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+8. This will download the installation script for the latest long-term support (LTS) version of Node.js.
+
+Install Node.js by running the following command:
+    sudo apt-get install -y nodejs
+
+# Phía trên là các phần tải đã tải trên terminal
+
+9. ### URL cách tải nvm và node: https://azdigi.com/blog/linux-server/webserver/cai-dat-node-js-voi-nvm-tren-ubuntu-22-04/
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+command -v nvm
+nvm ls-remote
+nvm install v18.15.0
+
+Tìm kiếm tên gói phần mềm mà bạn muốn xóa bằng lệnh 
+    dpkg -l | grep <tên_gói>
+Ví dụ, nếu bạn muốn xóa gói nodejs, bạn có thể chạy lệnh:
+    dpkg -l | grep nodejs
+Lệnh này sẽ liệt kê các gói phần mềm có chứa chuỗi "nodejs".
+
+Xóa gói phần mềm bằng lệnh 
+    sudo apt-get remove <tên_gói>. 
+Ví dụ, nếu bạn muốn xóa gói nodejs, bạn có thể chạy lệnh:
+    sudo apt-get remove nodejs
+Lệnh này sẽ xóa gói nodejs và các gói liên quan khác nếu có.
+
+Nếu bạn muốn xóa toàn bộ các gói phụ thuộc khác mà không còn sử dụng, bạn có thể chạy lệnh sudo apt-get autoremove.
+
+Kiểm tra lại bằng cách chạy lệnh dpkg -l | grep <tên_gói> để đảm bảo rằng gói phần mềm đã được xóa.
+
+Cách chạy một react-app: URL: https://github.com/tranhuunam00/K10-app
+
+
+
+
+BUỔI 2:
+	!important >> id >> style (inline) >> class local >> class global
+      100 >> 
+
+	“em” sẽ ăn theo thẻ ngoài bao nó và điều kiện thẻ đó feature font-size
+	“%” phụ thuộc vào thẻ cha nó, điều kiện cha nó có height:const.
+	
+	<p>: Thường dùng để ghi text
+	font-size mặc định của html: 16px
+
+	calc(): Dùng để tính toán
+
+	Lớp giả:
+		Không trong html, chưa cần hiển thị

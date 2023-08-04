@@ -1,0 +1,46 @@
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-size: 10px;
+}   
+/* Index2 */
+:root {
+    --primary-color: blue
+    --color:
+.h {
+    --primary-color: black;  
+    /* Biến local có thể ghi đè lên biến global */
+    color: var(--primary-color);
+    font-size: 50px;
+}
+h#id1 {
+    --primary-color: red; 
+}
+html {
+    font-size: 20px;
+    background-color: calc(30vw + 0px);
+}
+.div2 ::after {
+    content: "2uang";
+    height: 100px;
+    width: 100px;
+    background-color: red;
+    z-index: 0;
+    font-size: 100px;
+}
+.div1 {
+    width: 30em;   
+    /* "rem": phụ thuộc vào FONT_SIZE (of html)  */
+    height: 300px;
+    background-image: linear-gradient(to left top, red, blue );
+    font-size: 100px;
+}
+p ::first-letter{
+    content: "Mộng";
+    font-size: 600px;
+    color: green;
+}
+button :hover {
+    width: 50px;
+}
