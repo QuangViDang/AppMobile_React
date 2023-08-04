@@ -1,6 +1,0 @@
-+ Chỉnh logic và cách valuidate các giá trị
-+ Format code thành các hàm ==> cleaning code
-
-+ À còn một lỗi rất quan trọng đó là file js nên đặt ở dưới thẻ body vì code CHẠY TỪ TRÊN XUỐNG DƯỚI    
-
--  Bài tập được làm ở chương 6 với việc tiếp tục trên trang Login & SignUP
