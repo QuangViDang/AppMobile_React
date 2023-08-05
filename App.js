@@ -8,6 +8,9 @@ import CategoriesScreen from './screens/CategoriesScreen'
 import MealsOverviewScreen from './screens/MealsOverviewScreen'
 import MealDetailScreen from './screens/MealDetailScreen'
 import FavoritesScreen from './screens/FavoritesScreen'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './store/rootReduce'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -43,7 +46,7 @@ function DrawerNavigator() {
         </Drawer.Navigator>
     )
 }
-export default function App() {
+function App() {
     return (
         <>
             <StatusBar style="dark" />
@@ -58,7 +61,7 @@ export default function App() {
                     <Stack.Screen
                         name="Drawer"
                         component={DrawerNavigator}
-                        options={{ headerShown: false, }}
+                        options={{ headerShown: false }}
                     />
                     <Stack.Screen
                         name="MealsOverview"
@@ -79,3 +82,11 @@ export default function App() {
         </>
     )
 }
+
+
+const store = createStore(rootReducer)
+export default () => (
+    <Provider store={store}>
+        <App />
+    </Provider>
+)
