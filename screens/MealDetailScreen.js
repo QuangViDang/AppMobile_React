@@ -5,19 +5,27 @@ import Subtitle from '../components/MealDetail/SubTitle'
 import List from '../components/MealDetail/List'
 import { useLayoutEffect } from 'react'
 import IconButton from '../components/IconButton'
-import { useDispatch, useSelector } from 'react-redux'
-import { ADD_POST_to_Favorite } from '../store/actionTypes'
 
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    ADD_POST_to_Favorite,
+    REMOVE_POST_to_Favorite,
+} from '../store/actionTypes'
 export default function MealDetailScreen({ route, navigation }) {
     const mealId = route.params.mealId
     const selectedMeal = MEALS.find((meal) => meal.id === mealId)
 
-    const postList = useSelector((state) => state.posts.postList)
+    const favoriteList = useSelector((state) => state.posts.favoriteList)
     const dispatch = useDispatch()
+
     function pressAddToFavorite() {
-        console.log('list', postList)
-        dispatch({ type: ADD_POST_to_Favorite, payload: { id: mealId } })
-        console.log('Added to favorites')
+        if (favoriteList.includes(mealId)) {
+            console.log('REMOVE', favoriteList)
+            dispatch({ type: REMOVE_POST_to_Favorite, payload: mealId })
+        } else {
+            dispatch({ type: ADD_POST_to_Favorite, payload: mealId })
+            console.log('ADD', favoriteList)
+        }
     }
 
     useLayoutEffect(() => {
@@ -25,8 +33,8 @@ export default function MealDetailScreen({ route, navigation }) {
             headerRight: () => {
                 return (
                     <IconButton
-                        icon="star"
-                        color="black"
+                        icon="heart"
+                        color={favoriteList.includes(mealId) ? 'red' : 'gray'}
                         onPress={pressAddToFavorite}
                     />
                 )

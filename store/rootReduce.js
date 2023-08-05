@@ -1,9 +1,13 @@
 import { combineReducers } from 'redux'
-import { ADD_POST_to_Favorite, REMOVE_POST_to_Favorite } from './actionTypes'
+import {
+    ADD_POST_to_Favorite,
+    REMOVE_ALL_POST_to_Favorite,
+    REMOVE_POST_to_Favorite,
+} from './actionTypes'
 
 // userReducer.js
 const initialState = {
-    postList: [],
+    favoriteList: [],
 }
 
 const postReducer = (state = initialState, action) => {
@@ -11,13 +15,21 @@ const postReducer = (state = initialState, action) => {
         case ADD_POST_to_Favorite:
             return {
                 ...state,
-                postList: [...state.postList, action.payload],
+                favoriteList: [...state.favoriteList, action.payload],
             }
         case REMOVE_POST_to_Favorite:
             return {
                 ...state,
-                postList: state.postList.filter(
-                    (user) => user.id !== action.payload
+                favoriteList: state.favoriteList.filter(
+                    (item) => item !== action.payload
+                ),
+            }
+        case REMOVE_ALL_POST_to_Favorite:
+            return {
+                ...state,
+                favoriteList: favoriteList.splice(
+                    action.payload,
+                    favoriteList.length
                 ),
             }
         default:

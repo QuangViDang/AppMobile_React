@@ -35,11 +35,11 @@ function DrawerNavigator() {
                 }}
             />
             <Drawer.Screen
-                name="Favorites"
+                name="Favorites Food"
                 component={FavoritesScreen}
                 options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="star" color={color} size={size} />
+                    drawerIcon: ({ size }) => (
+                        <Ionicons name="heart" color="red" size={size} />
                     ),
                 }}
             />
@@ -82,7 +82,6 @@ function App() {
         </>
     )
 }
-
 
 const store = createStore(rootReducer)
 export default () => (

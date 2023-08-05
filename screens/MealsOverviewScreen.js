@@ -9,6 +9,7 @@ const MealsOverviewScreen = ({ route }) => {
     const displayerMeals = MEALS.filter((mealItem) => {
         return mealItem.categoryIds.indexOf(cardId) >= 0
     })
+    console.log(displayerMeals)
 
     const renderMealItem = (itemData) => {
         const item = itemData.item
@@ -38,6 +39,6 @@ const MealsOverviewScreen = ({ route }) => {
 export default MealsOverviewScreen
 
 const styles = StyleSheet.create({
-    flatList: { margin: 25 },
+    flatList: { margin: 20 },
     header: { alignItems: 'center' },
 })

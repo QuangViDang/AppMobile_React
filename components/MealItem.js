@@ -1,6 +1,14 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import IconButton from './IconButton'
+
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    ADD_POST_to_Favorite,
+    REMOVE_POST_to_Favorite,
+} from '../store/actionTypes'
+
 export default function MealItem({
     id,
     title,
@@ -8,7 +16,22 @@ export default function MealItem({
     duration,
     complexity,
     affordability,
+    pressAddToFavorite,
 }) {
+    const favoriteList = useSelector((state) => state.posts.favoriteList)
+    const dispatch = useDispatch()
+
+    function pressAddToFavorite() {
+        console.log('==========', favoriteList.includes(id))
+        
+        if (favoriteList.includes(id)) {
+            console.log('REMOVE', favoriteList)
+            dispatch({ type: REMOVE_POST_to_Favorite, payload: id })
+        } else {
+            dispatch({ type: ADD_POST_to_Favorite, payload: id })
+            console.log('ADD', favoriteList)
+        }
+    }
     const navigation = useNavigation()
 
     function selectMealItemHandler() {
@@ -16,30 +39,52 @@ export default function MealItem({
     }
     return (
         <View>
-            <Pressable
-                android_ripple={{ color: '#ccc' }}
-                style={({ pressed }) => (pressed ? styles.buttonPressed : null)}
-                onPress={selectMealItemHandler}
-            >
-                <View style={styles.innerContainer}>
-                    <View>
+            <View style={styles.innerContainer}>
+                <View>
+                    <Pressable
+                        android_ripple={{ color: '#ccc' }}
+                        style={({ pressed }) =>
+                            pressed ? styles.buttonPressed : null
+                        }
+                        onPress={selectMealItemHandler}
+                    >
                         <Image
                             source={{ uri: imageUrl }}
                             style={styles.image}
                         />
-                        <Text style={styles.title}>{title}</Text>
-                    </View>
-                    <View style={styles.details}>
-                        <Text style={styles.detailItem}>{duration}m</Text>
-                        <Text style={styles.detailItem}>
-                            {complexity?.toUpperCase()}
-                        </Text>
-                        <Text style={styles.detailItem}>
-                            {affordability?.toUpperCase()}
-                        </Text>
+                    </Pressable>
+                    <View style={styles.title}>
+                        <Pressable
+                            android_ripple={{ color: '#ccc' }}
+                            style={({ pressed }) =>
+                                pressed ? styles.buttonPressed : null
+                            }
+                            onPress={selectMealItemHandler}
+                        >
+                            <Text
+                                style={styles.titleText}
+                                onPress={selectMealItemHandler}
+                            >
+                                {title}
+                            </Text>
+                        </Pressable>
+                        <IconButton
+                            icon="heart"
+                            color={favoriteList.includes(id) ? 'red' : 'gray'}
+                            onPress={pressAddToFavorite}
+                        />
                     </View>
                 </View>
-            </Pressable>
+                <View style={styles.details}>
+                    <Text style={styles.detailItem}>{duration}m</Text>
+                    <Text style={styles.detailItem}>
+                        {complexity?.toUpperCase()}
+                    </Text>
+                    <Text style={styles.detailItem}>
+                        {affordability?.toUpperCase()}
+                    </Text>
+                </View>
+            </View>
         </View>
     )
 }
@@ -67,10 +112,18 @@ const styles = StyleSheet.create({
         height: 200,
     },
     title: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+    titleText: {
         fontWeight: 'bold',
-        textAlign: 'center',
         fontSize: 18,
         margin: 8,
+    },
+    like: {
+        marginRight: 5,
+        paddingRight: 8,
     },
     details: {
         flexDirection: 'row',
