@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Button } from 'react-native'
 
 export default function PaginationComponent({
     total,
@@ -73,15 +73,20 @@ export default function PaginationComponent({
             return (
                 <TouchableOpacity
                     onPress={() => handleSetPage(index)}
-                    style={[
-                        styles.paginationItem,
-                        number.isChooseTable === index &&
-                            styles.activePaginationItem,
-                        number.isChooseTable === index && { color: 'white' },
-                    ]}
                     key={index}
                 >
-                    <Text>{index}</Text>
+                    <Text
+                        style={[
+                            styles.paginationItem,
+                            number.isChooseTable === index &&
+                                styles.activePaginationItem,
+                            number.isChooseTable === index && {
+                                color: 'white',
+                            },
+                        ]}
+                    >
+                        {index}
+                    </Text>
                 </TouchableOpacity>
             )
         }
@@ -93,14 +98,17 @@ export default function PaginationComponent({
             return (
                 <TouchableOpacity
                     onPress={() => handleSetPage(index)}
-                    style={[
-                        styles.paginationItem,
-                        number.isChooseTable === index &&
-                            styles.activePaginationItem,
-                    ]}
                     key={index}
                 >
-                    <Text>{index}</Text>
+                    <Text
+                        style={[
+                            styles.paginationItem,
+                            number.isChooseTable === index &&
+                                styles.activePaginationItem,
+                        ]}
+                    >
+                        {index}
+                    </Text>
                 </TouchableOpacity>
             )
         }
@@ -155,69 +163,85 @@ export default function PaginationComponent({
                 >
                     <Text>{'<'}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.paginationItem,
-                        number.isChooseTable === 1 &&
-                            styles.activePaginationItem,
-                        number.isChooseTable === 1 && { color: 'white' },
-                    ]}
-                    onPress={() => handleSetPage(1)}
-                >
-                    <Text>1</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[
-                        styles.paginationItem,
-                        styles.ellipsis,
-                        {
-                            display:
-                                (number.page > number.pageShow &&
-                                    number.isChooseTable <=
-                                        Math.round(number.pageShow / 2)) ||
-                                number.page <= number.pageShow
-                                    ? 'none'
-                                    : null,
-                        },
-                    ]}
-                >
-                    <Text>...</Text>
-                </TouchableOpacity>
-                {number.page > number.pageShow ? PaginationSmall : PaginationSmallerShow}
-                <TouchableOpacity
-                    style={[
-                        styles.paginationItem,
-                        styles.ellipsis,
-                        {
-                            display:
-                                number.page > number.pageShow &&
-                                number.isChooseTable >=
-                                    number.page -
-                                        Math.round(number.pageShow / 2)
-                                    ? 'none'
-                                    : number.page > number.pageShow
-                                    ? 'flex'
-                                    : 'none',
-                        },
-                    ]}
-                >
-                    <Text>...</Text>
-                </TouchableOpacity>
-                {number.page > 1 && (
-                    <TouchableOpacity
-                        style={[
-                            styles.paginationItem,
-                            number.isChooseTable === number.page &&
-                                styles.activePaginationItem,
-                            number.isChooseTable === number.page && {
-                                color: 'white',
-                            },
-                        ]}
-                        onPress={() => handleSetPage(number.page)}
-                    >
-                        <Text>{number.page}</Text>
-                    </TouchableOpacity>
+                {number.page > number.pageShow ? (
+                    <View style={styles.PagiBig}>
+                        <TouchableOpacity onPress={() => handleSetPage(1)}>
+                            <Text
+                                style={[
+                                    styles.paginationItem,
+                                    number.isChooseTable === 1 &&
+                                        styles.activePaginationItem,
+                                    number.isChooseTable === 1 && {
+                                        color: 'white',
+                                    },
+                                ]}
+                            >
+                                1
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[
+                                styles.paginationItem,
+                                styles.ellipsis,
+                                {
+                                    display:
+                                        (number.page > number.pageShow &&
+                                            number.isChooseTable <=
+                                                Math.round(
+                                                    number.pageShow / 2
+                                                )) ||
+                                        number.page <= number.pageShow
+                                            ? 'none'
+                                            : null,
+                                },
+                            ]}
+                        >
+                            <Text>...</Text>
+                        </TouchableOpacity>
+                        {PaginationSmall}
+                        <TouchableOpacity
+                            style={[
+                                styles.paginationItem,
+                                styles.ellipsis,
+                                {
+                                    display:
+                                        number.page > number.pageShow &&
+                                        number.isChooseTable >=
+                                            number.page -
+                                                Math.round(number.pageShow / 2)
+                                            ? 'none'
+                                            : number.page > number.pageShow
+                                            ? 'flex'
+                                            : 'none',
+                                },
+                            ]}
+                        >
+                            <Text>...</Text>
+                        </TouchableOpacity>
+                        {number.page > 1 && (
+                            <TouchableOpacity
+                                onPress={() => handleSetPage(number.page)}
+                            >
+                                <Text
+                                    style={[
+                                        styles.paginationItem,
+                                        number.isChooseTable === number.page &&
+                                            styles.activePaginationItem,
+                                        number.isChooseTable ===
+                                            number.page && {
+                                            color: 'white',
+                                        },
+                                    ]}
+                                >
+                                    {number.page}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                    </View>
+                ) : (
+                    PaginationSmallerShow
                 )}
+
                 <TouchableOpacity
                     style={styles.icon}
                     onPress={() => {
@@ -254,7 +278,7 @@ export default function PaginationComponent({
                     style={styles.saveButton}
                     onPress={() => handleSave()}
                 >
-                    <Text style={styles.saveButtonText}>Save</Text>
+                    <Text style={styles.saveButtonText}>ItemPerPage</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -288,6 +312,9 @@ const styles = {
         paddingLeft: 5,
         paddingRight: 5,
     },
+    PagiBig: {
+        flexDirection: 'row',
+    },
     pageNumber: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -298,14 +325,20 @@ const styles = {
         borderWidth: 1,
         marginRight: 10,
         textAlign: 'center',
+        borderColor: '#00FF00',
+        borderRadius: 15,
     },
     invalidInput: {
         borderColor: 'red',
     },
+    buttonSAVE: { borderRadius: 15 },
     saveButton: {
-        backgroundColor: 'gray',
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#0099FF',
         padding: 5,
-        borderRadius: 3,
+        borderRadius: 15,
     },
     saveButtonText: {
         color: 'white',
