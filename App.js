@@ -11,6 +11,7 @@ import FavoritesScreen from './screens/FavoritesScreen'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from './store/rootReduce'
+import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -40,6 +41,15 @@ function DrawerNavigator() {
                 options={{
                     drawerIcon: ({ size }) => (
                         <Ionicons name="heart" color="red" size={size} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Pagination Test"
+                component={TableAndPagination}
+                options={{
+                    drawerIcon: ({ size }) => (
+                        <Ionicons name="heart-circle" color="red" size={size} />
                     ),
                 }}
             />
