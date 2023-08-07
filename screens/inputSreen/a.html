@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Paste Image Example</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #textInputContainer {
+            position: relative;
+        }
+
+        input[type="text"] {
+            border: none;
+            outline: none;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        #textInput {
+            width: 500px;
+            height: 40px;
+            border-radius: 15px;
+            padding-right: 100px;
+            box-sizing: border-box;
+        }
+
+        #textInput:focus {
+            outline: none;
+        }
+
+        #textInputContainer img {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            max-width: 90px;
+            max-height: 90px;
+        }
+
+        #sendButton {
+            color: #fff;
+            background-color: #f00;
+            height: 30px;
+            margin: 5px;
+            padding: 5px;
+            border-radius: 15px;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            margin-right: 100px;
+            margin-top: 2px;
+            padding-top: 60px;
+        }
+
+        .image-container img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .image-container .remove-button {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #f00;
+            color: #fff;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            line-height: 20px;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        #output {
+            display: flex;
+            align-items: center;
+        }
+
+        #imageList {
+            padding-left: 100px;
+            overflow-x: auto;
+        }
+
+        .inputDiv {
+            width: 500px;
+            outline: auto;
+            padding-left: 5px;
+        }
+
+        #Preview {
+            width: 400px;
+            height: 260px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="textInputContainer">
+        <div class="inputDiv">
+            <input type="text" id="textInput" placeholder="Dán ảnh và văn bản vào đây">
+            <div id="imageList"></div>
+        </div>
+        <img id="previewImage" src="#" alt="Preview" style="display: none;">
+    </div>
+    <button id="sendButton">Gửi</button>
+    <div id="output"></div>
+
+    <img id="Preview" src="https://haycafe.vn/wp-content/uploads/2022/03/anh-chan-dung-1.jpg">
+
+    <script>
+        function handlePaste(event) {
+            var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (var i = 0; i < items.length; i++) {
+                var item = items[ i ];
+
+                if (item.type.indexOf('image') !== -1) {
+                    var blob = item.getAsFile();
+                    var reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        var imageSrc = event.target.result;
+                        displayImage(imageSrc);
+                    };
+
+                    reader.readAsDataURL(blob);
+                }
+            }
+        }
+
+        function displayImage(src) {
+            var imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
+            var imageElement = document.createElement('img');
+            imageElement.src = src;
+            imageContainer.appendChild(imageElement);
+
+            var removeButton = document.createElement('button');
+            removeButton.classList.add('remove-button');
+            removeButton.innerHTML = 'X';
+            removeButton.addEventListener('click', function () {
+                imageContainer.remove();
+            });
+            imageContainer.appendChild(removeButton);
+            console.log(!imageElement);
+            if (imageElement) {
+                document.getElementById('imageList').style.height = "100px";
+                document.getElementById('imageList').appendChild(imageContainer);
+            }
+        }
+
+        function handleSendButton() {
+            var textInputValue = document.getElementById('textInput').value;
+
+            var imageContainers = document.querySelectorAll('.image-container');
+            var images = [];
+            for (var i = 0; i < imageContainers.length; i++) {
+                var image = imageContainers[ i ].querySelector('img');
+                images.push(image.src);
+            }
+
+            displayOutput(textInputValue, images);
+        }
+
+        function displayOutput(text, images) {
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+
+            for (var i = 0; i < images.length; i++) {
+                var imageElement = document.createElement('img');
+                imageElement.src = images[ i ];
+                imageElement.style.maxWidth = '100px';
+                imageElement.style.maxHeight = '100px';
+                outputDiv.appendChild(imageElement);
+            }
+
+            var textElement = document.createElement('p');
+            textElement.textContent = text;
+            outputDiv.appendChild(textElement);
+        }
+
+        var textInput = document.getElementById('textInput');
+        textInput.addEventListener('paste', handlePaste);
+
+        var previewImage = document.getElementById('previewImage');
+        textInput.addEventListener('input', function () {
+            if (textInput.value === '') {
+                previewImage.style.display = 'none';
+            } else {
+                previewImage.style.display = 'block';
+            }
+        });
+        textInput.addEventListener('paste', function (event) {
+            var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+            for (var i = 0; i < items.length; i++) {
+                var item = items[ i ];
+
+                if (item.type.indexOf('image') !== -1) {
+                    var blob = item.getAsFile();
+                    var reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        previewImage.src = event.target.result;
+                    };
+
+                    reader.readAsDataURL(blob);
+                }
+            }
+        });
+
+        var sendButton = document.getElementById('sendButton');
+        sendButton.addEventListener('click', handleSendButton);
+    </script>
+</body>
+
+</html>
