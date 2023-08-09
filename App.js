@@ -13,6 +13,7 @@ import { createStore } from 'redux'
 import rootReducer from './store/rootReduce'
 import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 import InputImageScreen from './screens/inputSreen/InputImageScreen'
+import GameStartScreen from './screens/Game/GameStartScreen'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -57,6 +58,15 @@ function DrawerNavigator() {
             <Drawer.Screen
                 name="InputImage Test"
                 component={InputImageScreen}
+                options={{
+                    drawerIcon: ({ size }) => (
+                        <Ionicons name="star" color="yellow" size={size} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Your Game"
+                component={GameStartScreen}
                 options={{
                     drawerIcon: ({ size }) => (
                         <Ionicons name="star" color="yellow" size={size} />
