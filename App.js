@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 
 import CategoriesScreen from './screens/CategoriesScreen'
 import MealsOverviewScreen from './screens/MealsOverviewScreen'
@@ -28,6 +28,19 @@ function DrawerNavigator() {
             }}
         >
             <Drawer.Screen
+                name="Your Game"
+                component={GameStartScreen}
+                options={{
+                    drawerIcon: ({ size }) => (
+                        <Ionicons
+                            name="heart-circle"
+                            color="violet"
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <Drawer.Screen
                 name="Categories"
                 component={CategoriesScreen}
                 options={{
@@ -51,7 +64,7 @@ function DrawerNavigator() {
                 component={TableAndPagination}
                 options={{
                     drawerIcon: ({ size }) => (
-                        <Ionicons name="heart-circle" color="red" size={size} />
+                        <AntDesign name="frown" size={30} color="black" />
                     ),
                 }}
             />
@@ -60,16 +73,7 @@ function DrawerNavigator() {
                 component={InputImageScreen}
                 options={{
                     drawerIcon: ({ size }) => (
-                        <Ionicons name="star" color="yellow" size={size} />
-                    ),
-                }}
-            />
-            <Drawer.Screen
-                name="Your Game"
-                component={GameStartScreen}
-                options={{
-                    drawerIcon: ({ size }) => (
-                        <Ionicons name="star" color="yellow" size={size} />
+                        <Ionicons name="star" color="orange" size={size} />
                     ),
                 }}
             />
