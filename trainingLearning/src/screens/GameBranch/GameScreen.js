@@ -29,8 +29,8 @@ function GameScreen({ userNumber }) {
             (direction_phuonghuong === 'lower' && currentGuess < userNumber) ||
             (direction_phuonghuong === 'greater' && currentGuess > userNumber)
         ) {
-            Alert.alert("Don't lie!", 'You know that this is wrong...', [
-                { text: 'Sorry!', style: 'cancel' },
+            Alert.alert("Don't lie!", 'You know that this is wrong... Sorry!', [
+                { text: 'Close', style: 'cancel' },
             ])
             return
         }

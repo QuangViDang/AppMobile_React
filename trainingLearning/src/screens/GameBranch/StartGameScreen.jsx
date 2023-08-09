@@ -41,7 +41,7 @@ export default function StartGameScreen({ onChangeInput = () => {} }) {
                         setInput(e)
                     }}
                     value={input}
-                    placeholder=". . ."
+                    placeholder=""
                     style={styles.inputNumber}
                     maxLength={2}
                     autoCapitalize="none" //Thuộc tính autoCapitalize được sử dụng để kiểm soát việc viết hoa chữ cái đầu tiên trong các từ khi người dùng nhập liệu vào ô TextInput. Nếu thuộc tính này được đặt là "none" (như trong trường hợp này), các từ sẽ không được tự động chuyển sang viết hoa chữ cái đầu tiên. Các giá trị khác của thuộc tính này bao gồm "words" (viết hoa chữ cái đầu tiên của mỗi từ), "sentences" (viết hoa chữ cái đầu tiên của mỗi câu) và "characters" (viết hoa chữ cái đầu tiên của mỗi ký tự).
