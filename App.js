@@ -28,6 +28,16 @@ function DrawerNavigator() {
             }}
         >
             <Drawer.Screen
+                name="Categories"
+                component={CategoriesScreen}
+                options={{
+                    title: 'All Categories',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="list" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
                 name="Your Game"
                 component={GameStartScreen}
                 options={{
@@ -37,16 +47,6 @@ function DrawerNavigator() {
                             color="violet"
                             size={size}
                         />
-                    ),
-                }}
-            />
-            <Drawer.Screen
-                name="Categories"
-                component={CategoriesScreen}
-                options={{
-                    title: 'All Categories',
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="list" color={color} size={size} />
                     ),
                 }}
             />
