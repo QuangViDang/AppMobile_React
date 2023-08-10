@@ -22,6 +22,7 @@ import UserPage from './features/users/UserPage'
 import { fetchPosts } from './features/posts/postsSlice'
 import PaginationAndTable from './present/TableAndPagination/PaginationAndTable'
 import LandingPage from './present/landingPage/LandingPage'
+import TextEdit from './present/TextEdit/TextEdit'
 
 const router = createBrowserRouter([
     {
@@ -90,6 +91,11 @@ const router = createBrowserRouter([
     {
         path: '/table',
         element: <PaginationAndTable />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/textEdit',
+        element: <TextEdit />,
         errorElement: <ErrorPage />,
     },
 ])

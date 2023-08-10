@@ -90,6 +90,9 @@ export default function Root() {
                     <Link to={`/table`}>
                         <button>Table</button>
                     </Link>
+                    <Link to={`/textEdit`}>
+                        <button>TextEdit</button>
+                    </Link>
                 </div>
 
                 <nav>
