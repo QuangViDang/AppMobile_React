@@ -7,8 +7,9 @@
 }
 
 #textedit_1,
-#textedit_2 {
-    width: 50%;
+#textedit_2,
+.editScreen {
+    width: 800px;
     margin: 20px;
 }
 #textedit_1 {
@@ -23,4 +24,14 @@
 .editScreen {
     display: flex;
     justify-content: space-between;
+}
+p img {
+    width: 768px;
+}
+.container {
+    width: 100%;
+}
+.ql-container.ql-snow,
+.ql-toolbar.ql-snow {
+    // border: none;
 }

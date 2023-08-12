@@ -1,6 +1,5 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import VideoPlugin from 'react-quill-plugin-video'
 
 const TextEditor = ({ value, onChange }) => {
     const modules = {
@@ -8,7 +7,7 @@ const TextEditor = ({ value, onChange }) => {
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline', 'strike'],
             [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image', 'video'], // Thêm option 'video' vào toolbar
+            ['link', 'image', 'imageResize'], // Thêm option 'video' vào toolbar
             [{ align: [] }],
             ['clean'],
         ],
@@ -24,9 +23,25 @@ const TextEditor = ({ value, onChange }) => {
         'bullet',
         'link',
         'image',
-        'video', // Thêm định dạng 'video'
+        'imageResize',
         'align',
     ]
+    const handleImageUpload = async (file) => {
+        // Xử lý tải lên hình ảnh và nhận về URL
+        const imageUrl = await uploadImage(file)
+
+        // Chèn hình ảnh vào trình soạn thảo với thuộc tính style và resizable
+        const range = quillRef.getEditor().getSelection(true)
+        quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl, 'user')
+
+        // Set thuộc tính resizable cho hình ảnh
+        const image = quillRef
+            .getEditor()
+            .scroll.domNode.querySelector(`[src="${imageUrl}"]`)
+        image.setAttribute('resizable', 'true')
+    }
+
+    // ...
 
     return (
         <ReactQuill
@@ -35,7 +50,6 @@ const TextEditor = ({ value, onChange }) => {
             modules={modules}
             formats={formats}
             placeholder="Start typing..."
-            plugins={[VideoPlugin]} // Thêm plugin 'VideoPlugin'
         />
     )
 }
