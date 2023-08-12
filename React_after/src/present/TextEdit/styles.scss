@@ -1,0 +1,26 @@
+#textedit {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#textedit_1,
+#textedit_2 {
+    width: 50%;
+    margin: 20px;
+}
+#textedit_1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ql-toolbar.ql-snow {
+    display: flex;
+    justify-content: center;
+}
+.editScreen {
+    display: flex;
+    justify-content: space-between;
+}

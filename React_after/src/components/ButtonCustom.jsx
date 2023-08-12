@@ -13,9 +13,12 @@ export default function ButtonCustom({
             className="button-glow"
             type={type}
             onClick={handleClickButton}
-            style={{ backgroundColor: { backgroundColor } }}
+            style={{ backgroundColor: { backgroundColor }, height: '50px' }}
         >
-            <img style={{display: {img_show}}} src={src_img_button} />
+            <img
+                style={{ display: img_show ? img_show : 'none' }}
+                src={src_img_button}
+            />
             {text}
         </button>
     )

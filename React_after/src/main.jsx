@@ -22,7 +22,7 @@ import UserPage from './features/users/UserPage'
 import { fetchPosts } from './features/posts/postsSlice'
 import PaginationAndTable from './present/TableAndPagination/PaginationAndTable'
 import LandingPage from './present/landingPage/LandingPage'
-import TextEdit from './present/TextEdit/TextEdit'
+import MyWordSreen from './present/TextEdit/MyWordScreen'
 
 const router = createBrowserRouter([
     {
@@ -95,7 +95,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/textEdit',
-        element: <TextEdit />,
+        element: <MyWordSreen />,
         errorElement: <ErrorPage />,
     },
 ])
