@@ -23,6 +23,7 @@ import { fetchPosts } from './features/posts/postsSlice'
 import PaginationAndTable from './present/TableAndPagination/PaginationAndTable'
 import LandingPage from './present/landingPage/LandingPage'
 import MyWordSreen from './present/TextEdit/MyWordScreen'
+import SunEditorScreen from './present/TextEdit/SunEditorScreen'
 
 const router = createBrowserRouter([
     {
@@ -96,6 +97,11 @@ const router = createBrowserRouter([
     {
         path: '/textEdit',
         element: <MyWordSreen />,
+        errorElement: <ErrorPage />,
+    },
+    {
+        path: '/textEdit_SunEditor',
+        element: <SunEditorScreen />,
         errorElement: <ErrorPage />,
     },
 ])

@@ -93,6 +93,9 @@ export default function Root() {
                     <Link to={`/textEdit`}>
                         <button>TextEdit</button>
                     </Link>
+                    <Link to={`/textEdit_SunEditor`}>
+                        <button>SunEditor</button>
+                    </Link>
                 </div>
 
                 <nav>

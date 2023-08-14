@@ -9,7 +9,14 @@ const HTMLParser = ({ htmlString }) => {
 
     const parsedHTML = parseStringToHTML(htmlString)
 
-    return <div dangerouslySetInnerHTML={{ __html: parsedHTML }} />
+    return (
+        <div className="">
+            <div
+                className=""
+                dangerouslySetInnerHTML={{ __html: parsedHTML }}
+            />
+        </div>
+    )
 }
 
 export default HTMLParser

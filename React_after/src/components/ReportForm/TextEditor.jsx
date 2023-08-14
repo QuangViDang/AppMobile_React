@@ -1,47 +1,41 @@
 import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
 
 const TextEditor = ({ value, onChange }) => {
     const modules = {
         toolbar: [
+            [{ font: [] }],
             [{ header: [1, 2, 3, 4, 5, 6, false] }],
             ['bold', 'italic', 'underline', 'strike'],
+            [{ color: [] }, { background: [] }],
+            [{ script: []  }],
+            ['blockquote', 'code-block'],
             [{ list: 'ordered' }, { list: 'bullet' }],
-            ['link', 'image', 'imageResize'], // Thêm option 'video' vào toolbar
-            [{ align: [] }],
+            [{ indent: '-1' }, { indent: '+1' }, { align: [] }],
+            ['link', 'image', 'video'],
             ['clean'],
         ],
     }
 
     const formats = [
+        'font',
         'header',
         'bold',
         'italic',
         'underline',
         'strike',
+        'color',
+        'background',
+        'script',
+        'blockquote',
+        'code-block',
         'list',
         'bullet',
+        'indent',
         'link',
         'image',
-        'imageResize',
+        'video',
         'align',
     ]
-    const handleImageUpload = async (file) => {
-        // Xử lý tải lên hình ảnh và nhận về URL
-        const imageUrl = await uploadImage(file)
-
-        // Chèn hình ảnh vào trình soạn thảo với thuộc tính style và resizable
-        const range = quillRef.getEditor().getSelection(true)
-        quillRef.getEditor().insertEmbed(range.index, 'image', imageUrl, 'user')
-
-        // Set thuộc tính resizable cho hình ảnh
-        const image = quillRef
-            .getEditor()
-            .scroll.domNode.querySelector(`[src="${imageUrl}"]`)
-        image.setAttribute('resizable', 'true')
-    }
-
-    // ...
 
     return (
         <ReactQuill
