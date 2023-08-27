@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import Voice from '@react-native-voice/voice'
-import RequestMicrophonePermission from '../../permission/ requestMicrophonePermission'
 
 export default function Assistant() {
     const [result, setResult] = useState('')
@@ -13,13 +12,10 @@ export default function Assistant() {
     Voice.onSpeechError = (e) => setError(e.error)
     Voice.onSpeechResults = (re) => setResult(re.value[0])
 
-    useEffect(() => {
-        RequestMicrophonePermission()
-    }, [])
     const startRecording = async () => {
         if (Voice) {
             try {
-                await Voice.start("en-Us")
+                await Voice.start('en-Us')
             } catch (error) {
                 console.log(error)
             }

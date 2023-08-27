@@ -15,11 +15,17 @@ import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 import InputImageScreen from './screens/inputSreen/InputImageScreen'
 import GameStartScreen from './screens/Game/GameStartScreen'
 import Assistant from './screens/voiecText/assistant'
+import assistant_voice from './screens/voiecText/assistant_voice'
+import RequestMicrophonePermission from './permission/ requestMicrophonePermission'
+import { useEffect } from 'react'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
+    useEffect(() => {
+        RequestMicrophonePermission()
+    }, [])
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -41,6 +47,19 @@ function DrawerNavigator() {
             <Drawer.Screen
                 name="Assistant"
                 component={Assistant}
+                options={{
+                    drawerIcon: ({ size }) => (
+                        <Ionicons
+                            name="heart-circle"
+                            color="violet"
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Assistant_"
+                component={assistant_voice}
                 options={{
                     drawerIcon: ({ size }) => (
                         <Ionicons
