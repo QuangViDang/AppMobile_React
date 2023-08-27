@@ -14,6 +14,7 @@ import rootReducer from './store/rootReduce'
 import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 import InputImageScreen from './screens/inputSreen/InputImageScreen'
 import GameStartScreen from './screens/Game/GameStartScreen'
+import Assistant from './screens/voiecText/assistant'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -34,6 +35,19 @@ function DrawerNavigator() {
                     title: 'All Categories',
                     drawerIcon: ({ color, size }) => (
                         <Ionicons name="list" color={color} size={size} />
+                    ),
+                }}
+            />
+            <Drawer.Screen
+                name="Assistant"
+                component={Assistant}
+                options={{
+                    drawerIcon: ({ size }) => (
+                        <Ionicons
+                            name="heart-circle"
+                            color="violet"
+                            size={size}
+                        />
                     ),
                 }}
             />
