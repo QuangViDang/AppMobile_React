@@ -15,17 +15,12 @@ import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 import InputImageScreen from './screens/inputSreen/InputImageScreen'
 import GameStartScreen from './screens/Game/GameStartScreen'
 import Assistant from './screens/voiecText/assistant'
-import assistant_voice from './screens/voiecText/assistant_voice'
-import RequestMicrophonePermission from './permission/ requestMicrophonePermission'
-import { useEffect } from 'react'
+import Assistant_voice from './src/screens/assistant_voice'
 
 const Stack = createNativeStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
-    useEffect(() => {
-        RequestMicrophonePermission()
-    }, [])
     return (
         <Drawer.Navigator
             screenOptions={{
@@ -35,12 +30,15 @@ function DrawerNavigator() {
             }}
         >
             <Drawer.Screen
-                name="Categories"
-                component={CategoriesScreen}
+                name="Assistant_"
+                component={Assistant_voice}
                 options={{
-                    title: 'All Categories',
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="list" color={color} size={size} />
+                    drawerIcon: ({ size }) => (
+                        <Ionicons
+                            name="heart-circle"
+                            color="violet"
+                            size={size}
+                        />
                     ),
                 }}
             />
@@ -58,15 +56,12 @@ function DrawerNavigator() {
                 }}
             />
             <Drawer.Screen
-                name="Assistant_"
-                component={assistant_voice}
+                name="Categories"
+                component={CategoriesScreen}
                 options={{
-                    drawerIcon: ({ size }) => (
-                        <Ionicons
-                            name="heart-circle"
-                            color="violet"
-                            size={size}
-                        />
+                    title: 'All Categories',
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="list" color={color} size={size} />
                     ),
                 }}
             />

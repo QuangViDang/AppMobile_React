@@ -32,6 +32,13 @@
         "web": {
             "favicon": "./assets/favicon.png"
         },
-        "plugins": ["@react-native-voice/voice"]
+        "plugins": [
+            [
+                "expo-av",
+                {
+                    "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
+                }
+            ]
+        ]
     }
 }
