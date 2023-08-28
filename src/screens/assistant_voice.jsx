@@ -5,18 +5,17 @@ import {
     TouchableOpacity,
     FlatList,
     StyleSheet,
+    Button,
 } from 'react-native'
 import { Audio } from 'expo-av'
 import * as Permissions from 'expo-permissions'
+import { SpeechClient } from '@google-cloud/speech'
 
-const Assistant_voice = () => {
+export default Assistant_voice = () => {
     const [recordings, setRecordings] = useState([])
     const [recording, setRecording] = useState()
     const [isRecording, setIsRecording] = useState(false)
-
-    useEffect(() => {
-        checkMicrophonePermissions()
-    }, [])
+    const [transcriptions, setTranscriptions] = useState([])
 
     const checkMicrophonePermissions = async () => {
         const { status } = await Permissions.askAsync(
@@ -26,6 +25,9 @@ const Assistant_voice = () => {
             console.log('Microphone permission denied')
         }
     }
+    useEffect(() => {
+        checkMicrophonePermissions()
+    }, [])
 
     const startRecording = async () => {
         try {
@@ -53,9 +55,71 @@ const Assistant_voice = () => {
         } catch (error) {
             console.error('Failed to stop recording', error)
         }
-        console.log(recordings)
+
+        // Trích xuất văn bản từ giọng trực tiếp, không cần lưu file
+        try {
+            const [operation] = await SpeechClient.recognize({
+                config: {
+                    encoding: 'LINEAR16',
+                    sampleRateHertz: 44100,
+                    languageCode: 'en-US', // Thay đổi thành mã ngôn ngữ phù hợp
+                },
+                audio: {
+                    uri: recording.getURI(),
+                },
+            })
+
+            const [response] = await operation.promise()
+
+            const transcription = response.results
+                .map((result) => result.alternatives[0].transcript)
+                .join('\n')
+
+            setTranscriptions(transcription)
+        } catch (error) {
+            console.error('Error converting audio to text:', error)
+        }
 
         setIsRecording(false)
+    }
+
+    const [sound, setSound] = useState()
+
+    const playSound = async (url_audio) => {
+        const { sound } = await Audio.Sound.createAsync({
+            uri: url_audio,
+        })
+        setSound(sound)
+        await sound.playAsync()
+    }
+
+    const convertAudioToText = async (url_audio) => {
+        try {
+            const [operation] = await SpeechClient.recognize({
+                config: {
+                    encoding: 'LINEAR16',
+                    sampleRateHertz: 44100,
+                    languageCode: 'en-US',
+                },
+                audio: {
+                    uri: url_audio,
+                },
+            });
+    
+            const [response] = await operation.promise();
+    
+            const transcription = response.results
+                .map((result) => result.alternatives[0].transcript)
+                .join('\n');
+    
+            setTranscriptions((prevTranscriptions) => [
+                ...prevTranscriptions.slice(0, index),
+                transcription,
+                ...prevTranscriptions.slice(index + 1),
+            ]);
+        } catch (error) {
+            console.error('Error converting audio to text:', error);
+        }
     }
 
     return (
@@ -74,7 +138,18 @@ const Assistant_voice = () => {
                 data={recordings}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => (
-                    <Text>{`${index + 1}: ${item}`}</Text>
+                    <View style={styles.container}>
+                        <Text>{`Bản ghi ${index + 1}: `}</Text>
+                        <Button
+                            title="Play Recording"
+                            onPress={() => playSound(item)}
+                        />
+                        <Button
+                            title="Read File"
+                            onPress={() => convertAudioToText(item)}
+                        />
+                        <Text>{transcriptions[index]}</Text>
+                    </View>
                 )}
             />
         </View>
@@ -104,5 +179,3 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 })
-
-export default Assistant_voice
