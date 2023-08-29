@@ -14,7 +14,6 @@ import rootReducer from './store/rootReduce'
 import TableAndPagination from './screens/PaginationScreen/TableAndPagination'
 import InputImageScreen from './screens/inputSreen/InputImageScreen'
 import GameStartScreen from './screens/Game/GameStartScreen'
-import Assistant from './screens/voiecText/assistant'
 import Assistant_voice from './src/screens/assistant_voice'
 
 const Stack = createNativeStackNavigator()
@@ -44,7 +43,7 @@ function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="Assistant"
-                component={Assistant}
+                component={Assistant_voice}
                 options={{
                     drawerIcon: ({ size }) => (
                         <Ionicons

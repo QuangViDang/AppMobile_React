@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { Audio } from 'expo-av'
 import * as Permissions from 'expo-permissions'
-import { SpeechClient } from '@google-cloud/speech'
+import axios from 'axios'
 
 export default Assistant_voice = () => {
     const [recordings, setRecordings] = useState([])
@@ -56,30 +56,6 @@ export default Assistant_voice = () => {
             console.error('Failed to stop recording', error)
         }
 
-        // Trích xuất văn bản từ giọng trực tiếp, không cần lưu file
-        try {
-            const [operation] = await SpeechClient.recognize({
-                config: {
-                    encoding: 'LINEAR16',
-                    sampleRateHertz: 44100,
-                    languageCode: 'en-US', // Thay đổi thành mã ngôn ngữ phù hợp
-                },
-                audio: {
-                    uri: recording.getURI(),
-                },
-            })
-
-            const [response] = await operation.promise()
-
-            const transcription = response.results
-                .map((result) => result.alternatives[0].transcript)
-                .join('\n')
-
-            setTranscriptions(transcription)
-        } catch (error) {
-            console.error('Error converting audio to text:', error)
-        }
-
         setIsRecording(false)
     }
 
@@ -93,32 +69,64 @@ export default Assistant_voice = () => {
         await sound.playAsync()
     }
 
-    const convertAudioToText = async (url_audio) => {
+    const convertFileToBase64 = async (filePath) => {
         try {
-            const [operation] = await SpeechClient.recognize({
-                config: {
-                    encoding: 'LINEAR16',
-                    sampleRateHertz: 44100,
-                    languageCode: 'en-US',
-                },
-                audio: {
-                    uri: url_audio,
-                },
-            });
-    
-            const [response] = await operation.promise();
-    
-            const transcription = response.results
-                .map((result) => result.alternatives[0].transcript)
-                .join('\n');
-    
-            setTranscriptions((prevTranscriptions) => [
-                ...prevTranscriptions.slice(0, index),
-                transcription,
-                ...prevTranscriptions.slice(index + 1),
-            ]);
+            const response = await fetch(filePath)
+            const blob = await response.blob()
+            const reader = new FileReader()
+
+            return new Promise((resolve, reject) => {
+                reader.onload = () => {
+                    const base64Data = reader.result.split(',')[1]
+                    resolve(base64Data)
+                }
+                reader.onerror = (error) => {
+                    reject(error)
+                }
+
+                reader.readAsDataURL(blob)
+            })
         } catch (error) {
-            console.error('Error converting audio to text:', error);
+            console.error('Error:', error)
+            throw error
+        }
+    }
+
+    const convertAudioToText = async (audioData) => {
+        try {
+            const base64Audio = await convertFileToBase64(audioData)
+            console.log('Say hi ====> ', base64Audio)
+            const response = await axios.post(
+                'https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyBadi4642tSkHn19DZuHCem2mCmlulw2VM',
+                {
+                    config: {
+                        encoding: 'LINEAR16',
+                        sampleRateHertz: 44100,
+                        languageCode: 'en-US',
+                    },
+                    audio: {
+                        content: base64Audio,
+                    },
+                }
+            )
+
+            // Xử lý phản hồi từ dịch vụ
+            const transcription = response.data.results
+                .map((result) => result.alternatives[0].transcript)
+                .join('\n')
+
+            setTranscriptions(transcription)
+        } catch (error) {
+            if (error.response) {
+                // Phản hồi từ máy chủ
+                console.log('Error internet')
+                console.log('Error 1', error.response.data)
+                console.log('Error 2', error.response.status)
+                console.log('Error 3', error.response.headers)
+            } else {
+                // Lỗi không có phản hồi từ máy chủ
+                console.log('Error not internet:', error.message)
+            }
         }
     }
 
