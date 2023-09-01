@@ -97,7 +97,7 @@ export default Assistant_voice = () => {
             const base64Audio = await convertFileToBase64(audioData)
             console.log('Say hi ====> ', base64Audio)
             const response = await axios.post(
-                'https://speech.googleapis.com/v1/speech:recognize?key=AIzaSyBadi4642tSkHn19DZuHCem2mCmlulw2VM',
+                'https://speech.googleapis.com/v1/speech:recognize?key=',
                 {
                     config: {
                         encoding: 'LINEAR16',
