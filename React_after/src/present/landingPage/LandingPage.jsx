@@ -49,7 +49,6 @@ export default function LandingPage() {
 
                 <div id="landingBody">
                     <h2>Learntion</h2>
-                    <h1>Learntion</h1>
                     <SlideContent
                         slides={slidesImgAds}
                         indexAds={indexAds}
